@@ -5,9 +5,14 @@
 # 
 # This script is rsynced accross, then is run each time an rsync occurs
 
-nagios_user="nagios"
-nagios_uid="623"
-nagios_gid="623"
+expected_nagios_user="nagios"
+expected_nagios_uid="$1"
+expected_nagios_gid="$2"
+
+if [ -z ${nagios_uid} ] || [ -z ${nagios_gid} ]; then
+	echo "Must supply both a UID for the Nagios User and a GID for the Nagios Group"
+	exit 1
+fi
 
 # check nagios user exists
 
@@ -21,24 +26,41 @@ this_nagios_group=${nagios_gid}
 # and create it fresh, otherwise skip
 #
 
+echo ""
 echo "Checking user and group ID..."
+echo ""
 
-if [ "${this_nagios_user}" -ne "${nagios_uid}" ] || [ "${this_nagios_group}" -ne "${nagios_gid}" ]; then
-    userdel ${nagios_user}
+if [ "${this_nagios_user}" -ne "${expected_nagios_uid}" ] || [ "${this_nagios_group}" -ne "${expected_nagios_gid}" ]; then
+
+    echo ""
+    echo "Nagios UID and GID not suitable, remediating..."
+    echo ""
+
+    #
+    # userdel will remove the user's home directory if it exists
+    # thecronjob will not be deleted
+    #
+    userdel ${this_nagios_user}
     rc=$?
     if [ ${rc} -ne 0 ]; then
-        echo "Error removing user: ${nagios_user}!"
+        echo "Error removing user: ${this_nagios_user}!"
         exit ${rc}
     fi
 
-    useradd ${nagios} --uid ${nagios_uid} --gid ${nagios_gid}
+    useradd ${expected_nagios_user} --uid ${expected_nagios_uid} --gid ${expected_nagios_gid}
     rc=$?
     if [ ${rc} -ne 0 ]; then
-        echo "Error adding user ${nagios_user} with uid: ${nagios_uid} and gid: ${nagios_gid}"
+        echo "Error adding user ${expected_nagios_user} with uid: ${expected_nagios_uid} and gid: ${expected_nagios_gid}"
         exit ${rc}
     fi
+
+    echo ""
+    echo "Nagios UID and GID remediation complete."
+    echo ""
 fi
 
+echo ""
 echo "User and group ID fine..."
+echo ""
 
 exit 0
