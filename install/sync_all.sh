@@ -8,14 +8,14 @@
 # sync the plugins to each target.
 #
 
-installer_config_file="cl_install_nagios.cfg"
+installer_config_file="nagios_install.cfg"
 
 source_plugins_dir=`grep -i "source_plugins_dir" ${installer_config_file} | sed -e 's/source_plugins_dir=//' | tr -d \"`
 echo ${source_plugins_dir}
 
 if [ ! -d ${source_plugins_dir} ]; then
     echo "Error! Plugins repo does not exist!"
-    #exit 1
+    exit 1
 fi
 
 source_configs_dir=`grep -i "source_configs_dir" ${installer_config_file} | sed -e 's/source_configs_dir=//' | tr -d \"`
@@ -23,7 +23,7 @@ echo ${source_configs_dir}
 
 if [ ! -d ${source_configs_dir} ]; then
     echo "Error! Configs directory does not exist!"
-    #exit 1
+    exit 1
 fi
 
 #

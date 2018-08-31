@@ -10,6 +10,11 @@
 # Make sure I am running as root
 #
 
+if [ `id -u` -ne 0 ]; then
+    echo "Error! ${0} must be run as root."
+    exit 1
+fi
+
 this_host=`hostname -f | sed -e s/.alces.network$//g`
 
 #
@@ -27,7 +32,7 @@ if [ ${is_controller} -ne 0 ]; then
     exit 1
 fi
 
-installer_config_file="cl_install_nagios.cfg"
+installer_config_file="nagios_install.cfg"
 
 if [ ! -f ${installer_config_file} ]; then
     echo "Installation config file not found!"
@@ -35,8 +40,8 @@ if [ ! -f ${installer_config_file} ]; then
 fi
 
 # Unlikely, but just in case.
-if [ ! -d /opt/alces ]; then
-    echo "Error /opt/alces does not exist!"
+if [ ! -d ${parent_source_dir} ]; then
+    echo "Error! Parent directory: ${parent_source_dir} does not exist!"
     exit 1
 fi
 
@@ -47,8 +52,14 @@ fi
 nagios_plugins_repo=`grep -i "nagios_plugins_repo" ${installer_config_file} | sed -e 's/nagios_plugins_repo=//' | tr -d \"`
 
 #
-# Clone Nagios Base Repo: Plugins, Sync Scripts
+# Clone Nagios Base Repo: Plugins, Sync Scripts 
 #
+
+#
+# Get the local directory that the plugins repo will be stored.
+#
+
+source_plugins_dir=`grep -i "source_plugins_dir" ${installer_config_file} | sed -e 's/source_plugins_dir=//' | tr -d \"`
 
 git clone ${nagios_plugins_repo} ${source_plugins_dir}
 rc=$?
@@ -65,6 +76,11 @@ fi
 nagios_config_repo=`grep -i "nagios_config_repo" ${installer_config_file} | sed -e 's/nagios_config_repo=//' | tr -d \"`
 echo "Nagios Config Repository is: ${nagios_config_repo}"
 
+#
+# Get the local directory that the configs repo will be stored.
+#
+
+source_configs_dir=`grep -i "source_configs_dir" ${installer_config_file} | sed -e 's/source_configs_dir=//' | tr -d \"`
 
 # 
 # Determine the cluster this is. We will fetch our own configuration.
