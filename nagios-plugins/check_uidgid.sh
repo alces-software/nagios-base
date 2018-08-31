@@ -17,9 +17,7 @@ fi
 # check nagios user exists
 
 this_nagios_user=`id -u ${nagios_user}`
-this_nagios_user=${nagios_uid}
 this_nagios_group=`id -g ${nagios_group}`
-this_nagios_group=${nagios_gid}
 
 #
 # If the UID or GID is incorrect, then remove the user
