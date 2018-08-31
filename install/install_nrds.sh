@@ -32,6 +32,10 @@ if [ ${is_controller} -ne 0 ]; then
     exit 1
 fi
 
+#
+# Set the name of the config file used by the installer.
+#
+
 installer_config_file="nagios_install.cfg"
 
 if [ ! -f ${installer_config_file} ]; then
@@ -39,7 +43,10 @@ if [ ! -f ${installer_config_file} ]; then
     exit 1
 fi
 
-# Unlikely, but just in case.
+#
+# Ensure that the /opt/alces directory exists and exit if it doesn't.
+#
+
 if [ ! -d ${parent_source_dir} ]; then
     echo "Error! Parent directory: ${parent_source_dir} does not exist!"
     exit 1
@@ -51,12 +58,14 @@ fi
 
 nagios_plugins_repo=`grep -i "nagios_plugins_repo" ${installer_config_file} | sed -e 's/nagios_plugins_repo=//' | tr -d \"`
 
-#
-# Clone Nagios Base Repo: Plugins, Sync Scripts 
-#
 
 #
-# Get the local directory that the plugins repo will be stored.
+# Clone nagios-base, which is the repo containing plugins
+#   and a limited but defined set of plugin dependencies.
+#   Also will store scripts for checking the Nagios User is correct
+#      and creating the cronjob.
+#   The repo that is stored will be placed in ${source_plugins_dir}.
+#   Typically /opt/alces/nagios-base
 #
 
 source_plugins_dir=`grep -i "source_plugins_dir" ${installer_config_file} | sed -e 's/source_plugins_dir=//' | tr -d \"`
@@ -83,7 +92,7 @@ echo "Nagios Config Repository is: ${nagios_config_repo}"
 source_configs_dir=`grep -i "source_configs_dir" ${installer_config_file} | sed -e 's/source_configs_dir=//' | tr -d \"`
 
 # 
-# Determine the cluster this is. We will fetch our own configuration.
+# Determine which cluster this is, I will fetch a configuration that is specific to my cluster.
 #
 
 # dev
@@ -98,8 +107,11 @@ echo "Cloning repo: ${nagios_config_repo}, branch: ${branch}"
 
 
 #
-# Clone Nagios Repo: the Branch I need
+# Clone nagios-configs, which is the repo containing configs 
+#   The repo that is cloned will be placed in ${source_configs_dir}.
+#   Typically /opt/alces/nagios-configs
 #
+
 git clone -b ${branch} ${nagios_config_repo} ${source_configs_dir}
 rc=$?
 if [ ${rc} -ne 0 ]; then
@@ -107,14 +119,9 @@ if [ ${rc} -ne 0 ]; then
     exit ${rc}
 fi
 
-# Create the Nagios parent directory
-
 #
 # OK, launch sync script.
 # 
 
-#
-# sync script gets launched 
-# 
 
 exit 0

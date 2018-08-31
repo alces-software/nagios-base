@@ -46,6 +46,9 @@ destination_machine="127.0.0.1"
 echo ""
 echo "Syncing plugins..."
 echo ""
+echo ""
+echo "Syncing plugins to: ${destination_machine}"
+echo ""
 
 
 # -e flag with the ssh command and identify file not needed in production version!
@@ -62,6 +65,9 @@ echo ""
 
 echo ""
 echo "Syncing configs..."
+echo ""
+echo ""
+echo "Syncing configs to: ${destination_machine}"
 echo ""
 
 sudo rsync -aCvz -e "ssh -i /root/.ssh/id_rsa" ${source_configs_dir}/ ${destination_machine}:${destination_configs_dir} --delete
@@ -81,8 +87,8 @@ echo ""
 #
 # Check the nagios user's UID and GID is set correctly.
 #
-nagios_user_uid=`grep -i "nagios_user_id" ${installer_config_file} | sed -e 's/nagios_user_id=//' | tr -d \"`
-nagios_group_gid=`grep -i "nagios_group_id" ${installer_config_file} | sed -e 's/nagios_group_gid=//' | tr -d \"`
+nagios_user_uid=`grep -i "nagios_user_uid" ${installer_config_file} | sed -e 's/nagios_user_uid=//' | tr -d \"`
+nagios_group_gid=`grep -i "nagios_group_gid" ${installer_config_file} | sed -e 's/nagios_group_gid=//' | tr -d \"`
 
 ssh ${destination_machine} ${destination_plugins_dir}/nagios-plugins/check_uidgid.sh ${nagios_user_uid} ${nagios_group_gid}
 rc=$?
