@@ -30,8 +30,7 @@ echo ""
 echo "Checking user and group ID..."
 echo ""
 
-if [ "${this_nagios_user}" -ne "${expected_nagios_uid}" ] || [ "${this_nagios_group}" -ne "${expected_nagios_gid}" ]; then
-
+if [ "${this_nagios_user}" != "${expected_nagios_uid}" ] || [ "${this_nagios_group}" != "${expected_nagios_gid}" ]; then
     echo ""
     echo "Nagios UID and GID not suitable, remediating..."
     echo ""
