@@ -9,7 +9,7 @@ expected_nagios_user="nagios"
 expected_nagios_uid="$1"
 expected_nagios_gid="$2"
 
-if [ -z ${nagios_uid} ] || [ -z ${nagios_gid} ]; then
+if [ -z ${expected_nagios_uid} ] || [ -z ${expected_nagios_gid} ]; then
 	echo "Must supply both a UID for the Nagios User and a GID for the Nagios Group"
 	exit 1
 fi
