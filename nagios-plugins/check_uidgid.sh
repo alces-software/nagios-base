@@ -67,13 +67,13 @@ if [ "${this_nagios_user}" != "${expected_nagios_uid}" ] || [ "${this_nagios_gro
     #
 
     if [ ${this_nagios_user} -ge 1000 ]; then
-        echo "${this_nagios_user} has a regular user account."
-	echo "Removing /home/${this_nagios_user}"
-	rm -rf /home/${this_nagios_user}
+        echo "${expected_nagios_user} has a regular user account."
+	echo "Removing /home/${expected_nagios_user}"
+	rm -rf /home/${expected_nagios_user}
 	rc=$?
 	if [ ${rc} -ne 0 ]; then
-	    echo "Error! Unable to remove home directory: /home/${this_nagios_user}"
-	    exit 1
+	    echo "Unable to remove home directory: /home/${expected_nagios_user}"
+	    echo "Maybe it didn't exist anyway?"
 	fi
     fi
 
@@ -88,7 +88,7 @@ if [ "${this_nagios_user}" != "${expected_nagios_uid}" ] || [ "${this_nagios_gro
     fi
 
     echo ""
-    echo "${expected_nagios_user} has had their UID corrected."
+    echo "${expected_nagios_user} has had its UID corrected."
     echo ""
 
     #
@@ -108,7 +108,7 @@ if [ "${this_nagios_user}" != "${expected_nagios_uid}" ] || [ "${this_nagios_gro
     #
     # Assign new GID and UID ownership to plugins directory.
     #
-    chmod -R ${expected_nagios_uid}:${expected_nagios_gid} ${destination_plugins_dir}
+    chown -R ${expected_nagios_uid}:${expected_nagios_gid} ${destination_plugins_dir}
     rc=$?
     if [ ${rc} -ne 0 ]; then
         echo "Error! Unable to change ownership of directory: ${destination_plugins_dir} to user: ${expected_nagios_uid} and group: ${expected_nagios_gid}"
@@ -122,7 +122,7 @@ if [ "${this_nagios_user}" != "${expected_nagios_uid}" ] || [ "${this_nagios_gro
     #
     # Assign new GID and UID ownership to configs directory.
     #
-    chmod -R ${expected_nagios_uid}:${expected_nagios_gid} ${destination_configs_dir}
+    chown -R ${expected_nagios_uid}:${expected_nagios_gid} ${destination_configs_dir}
     if [ ${rc} -ne 0 ]; then
         echo "Error! Unable to change ownership of directory: ${destination_configs_dir} to user: ${expected_nagios_uid} and group: ${expected_nagios_gid}"
 	exit ${rc}
@@ -140,6 +140,6 @@ fi
 
 echo ""
 echo "User and group ID fine..."
-echo "
+echo ""
 
 exit 0
