@@ -40,6 +40,12 @@ echo ${destination_configs_dir}
 # rsync all files from the source to the destination machines
 #
 
+#
+# The following is to be done for each machine
+#
+
+for machine-profile in (
+
 # how to get the value of the destination machine?
 destination_machine="127.0.0.1"
 
@@ -47,7 +53,7 @@ echo ""
 echo "Syncing plugins..."
 echo ""
 echo ""
-echo "Syncing plugins to: ${destination_machine}"
+echo "Syncing plugins to directory: ${destination_config_file} on machine:  ${destination_machine}"
 echo ""
 
 
@@ -55,7 +61,7 @@ echo ""
 sudo rsync -aCvz -e "ssh -i /root/.ssh/id_rsa" ${source_plugins_dir}/ ${destination_machine}:${destination_plugins_dir} --delete
 rc=$?
 if [ ${rc} -ne 0 ]; then
-    echo "Errori syncing plugins! rsync error code is: ${rc}"
+    echo "Error syncing plugins! rsync error code is: ${rc}"
     exit 1
 fi
 
