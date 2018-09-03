@@ -87,10 +87,11 @@ echo ""
 #
 # Check the nagios user's UID and GID is set correctly.
 #
+
 nagios_user_uid=`grep -i "nagios_user_uid" ${installer_config_file} | sed -e 's/nagios_user_uid=//' | tr -d \"`
 nagios_group_gid=`grep -i "nagios_group_gid" ${installer_config_file} | sed -e 's/nagios_group_gid=//' | tr -d \"`
 
-ssh ${destination_machine} ${destination_plugins_dir}/nagios-plugins/check_uidgid.sh ${nagios_user_uid} ${nagios_group_gid}
+ssh ${destination_machine} ${destination_plugins_dir}/nagios-plugins/check_uidgid.sh ${nagios_user_uid} ${nagios_group_gid} ${destination_plugins_dir} ${destination_configs_dir}
 rc=$?
 if [ ${rc} -ne 0 ]; then
     echo "Error remotely executing: check_uidgid.sh"
