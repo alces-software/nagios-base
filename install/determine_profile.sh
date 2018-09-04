@@ -31,20 +31,32 @@ fi
 #    exit 1
 #fi
 
-# for each entry in the cluster_machines
+#
+# Not a very "efficient" way of doing this:- is this a problem? It is done this way for it's simplicity.
+#
 
-while read machine; do
-    echo "Locating profile for: ${machine}"
+while read cluster_machine; do
+
     echo ""
-    while read profile; do
-       
-       # get the line.
+    echo "Locating Nagios Monitoring Profile for: ${cluster_machine}"
+    echo ""
 
-       echo ${read} | grep -o "${machine}"
-       rc=$?
-       if [ ${rc} ]; then
-       fi
-       
+    machine_type=`echo "${cluster_machine}" | grep -o "^[[:alpha:]]*"`
+    echo "machine_type is: ${machine_type}"
+
+    #
+    # Iterate through the file and see if there are any matches.
+    #
+
+    while read machine_type_profile; do
+
+	if echo "${machine_type_profile}" | egrep -iq "^${machine_type}"; then
+            profile=`echo ${machine_type_profile} | egrep -io "[A-Za-z0-9-]*$"`
+	    echo "${profile}"
+	    echo "${cluster_machine}:${profile}" >> cluster_monitoring_profile.cfg
+	    break;
+        fi
+
     done < ${approx_host_to_profile}
 
 done < ${cluster_machines}
