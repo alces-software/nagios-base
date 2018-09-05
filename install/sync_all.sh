@@ -1,13 +1,5 @@
 #!/bin/bash
 
-# 
-# Now both repos are available on us (controller).
-#
-
-#
-# sync the plugins to each target.
-#
-
 installer_config_file="nagios_install.cfg"
 
 source_plugins_dir=`grep -i "source_plugins_dir" ${installer_config_file} | sed -e 's/source_plugins_dir=//' | tr -d \"`
@@ -62,8 +54,6 @@ if [ -z ${destination_plugins_dir} ] || [ -z ${destination_clients_dir} ] || [ -
     exit 1
 fi
 
-exit 0
-
 #
 # rsync all files from the source to the destination machines
 # This is where the plugins and the configs are iteratively pushed to each node in the cluster
@@ -89,15 +79,13 @@ exit 0
     profile=`echo ${machine_profile_entry} | cut -d: -f2`
     echo "Monitoring Profile is: ${profile}"
 
-    continue;
 
     echo ""
     echo "Syncing Nagios Plugins..."
     echo ""
     echo ""
-    echo "Syncing plugins to directory: ${destination_config_file} on machine:  ${destination_machine}"
+    echo "Syncing plugins to directory: ${destination_plugins_dir} on machine:  ${destination_machine}"
     echo ""
-
 
     # -e flag with the ssh command and identify file not needed in production version!
     sudo rsync -aCvz -e "ssh -i /root/.ssh/id_rsa" ${source_plugins_dir}/ ${destination_machine}:${destination_plugins_dir} --delete
@@ -110,6 +98,8 @@ exit 0
     echo ""
     echo "Plugins now synced."
     echo ""
+
+    exit 0
 
     #
     # Syncing NRDS Client files
