@@ -53,10 +53,16 @@ if [ ! -d ${parent_source_dir} ]; then
 fi
 
 #
-# Get Nagios Plugins Repo URL from config file
+# Get nagios-base Repo URL from config file
 #
 
-nagios_plugins_repo=`grep -i "nagios_plugins_repo" ${installer_config_file} | sed -e 's/nagios_plugins_repo=//' | tr -d \"`
+nagios_base_repo=`grep -i "nagios_plugins_repo" ${installer_config_file} | sed -e 's/nagios_plugins_repo=//' | tr -d \"`
+
+
+#
+# Get local directory in which nagios-base will be stored
+#
+source_base_dir=`grep -i "source_base_dir" ${installer_config_file} | sed -e 's/source_base_dir=//' | tr -d \"`
 
 
 #
@@ -68,9 +74,7 @@ nagios_plugins_repo=`grep -i "nagios_plugins_repo" ${installer_config_file} | se
 #   Typically /opt/alces/nagios-base
 #
 
-source_plugins_dir=`grep -i "source_plugins_dir" ${installer_config_file} | sed -e 's/source_plugins_dir=//' | tr -d \"`
-
-git clone ${nagios_plugins_repo} ${source_plugins_dir}
+git clone ${nagios_plugins_repo} ${source_base_dir}
 rc=$?
 if [ ${rc} -ne 0 ]; then
     echo "Error cloning repo!"
