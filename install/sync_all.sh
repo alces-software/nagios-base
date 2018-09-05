@@ -2,23 +2,15 @@
 
 installer_config_file="nagios_install.cfg"
 
-source_plugins_dir=`grep -i "source_plugins_dir" ${installer_config_file} | sed -e 's/source_plugins_dir=//' | tr -d \"`
-echo ${source_plugins_dir}
+source_base_dir=`grep -i "source_base_dir" ${installer_config_file} | sed -e 's/source_base_dir=//' | tr -d \"`
+echo ${source_base_dir}
 
-if [ ! -d ${source_plugins_dir} ]; then
-    echo "Error! Plugins repo not found!"
+if [ ! -d ${source_base_dir} ]; then
+    echo "Error! Base repo not found!"
     exit 1
 fi
 
-echo "Plugins are at: ${source_plugins_dir}"
-
-source_clients_dir=`grep -i "source_clients_dir" ${installer_config_file} | sed -e 's/source_clients_dir=//' | tr -d \"`
-echo "Clients are at : ${source_clients_dir}"
-
-if [ ! -d ${source_clients_dir} ]; then
-    echo "Error! Client directory not found!"
-    exit 1
-fi
+echo "Base dir is at: ${source_base_dir}"
 
 source_configs_dir=`grep -i "source_configs_dir" ${installer_config_file} | sed -e 's/source_configs_dir=//' | tr -d \"`
 echo ${source_configs_dir}
@@ -32,25 +24,20 @@ fi
 #  Where the plugins will go
 #
 
-destination_plugins_dir=`grep -i "destination_plugins_dir" ${installer_config_file} | sed -e 's/destination_plugins_dir=//' | tr -d \"`
-echo ${destination_plugins_dir}
+destination_base_dir=`grep -i "destination_base_dir" ${installer_config_file} | sed -e 's/destination_base_dir=//' | tr -d \"`
+echo ${destination_base_dir}
+
+if [ -z ${destination_base_dir} ]; then
+    echo "Error! Destination directory must be specified in : ${installer_config_file}"
+    exit 1
+fi
 
 #
-# Where the destination NRDS client will go
+# WHere the config will go
 #
-
-destination_clients_dir=`grep -i "destination_clients_dir" ${installer_config_file} | sed -e 's/destination_clients_dir=//' | tr -d \"`
-echo ${destination_clients_dir}
-
-#
-# Where the configs will go
-#
-
-destination_configs_dir=`grep -i "destination_configs_dir" ${installer_config_file} | sed -e 's/destination_configs_dir=//' | tr -d \"`
-echo ${destination_configs_dir}
-
-if [ -z ${destination_plugins_dir} ] || [ -z ${destination_clients_dir} ] || [ -z ${destination_configs_dir} ]; then
-    echo "Error! Destination directories must be specified in : ${installer_config_file}"
+destination_config_dir=`grep -i "destination_config_dir" ${installer_config_file} | sed -e 's/destination_config_dir=//' | tr -d \"`
+if [ -z ${destination_config_dir} ]; then
+    echo "Error! Destination directory must be specified in : ${installer_config_file}"
     exit 1
 fi
 
@@ -81,64 +68,44 @@ fi
 
 
     echo ""
-    echo "Syncing Nagios Plugins..."
+    echo "Syncing NRDS Client and Nagios Plugins..."
     echo ""
     echo ""
-    echo "Syncing plugins to directory: ${destination_plugins_dir} on machine:  ${destination_machine}"
+    echo "Syncing NRDS Client and Nagios plugins to directory: ${destination_base_dir} on machine:  ${destination_machine}"
     echo ""
 
     # -e flag with the ssh command and identify file not needed in production version!
-    sudo rsync -aCvz -e "ssh -i /root/.ssh/id_rsa" ${source_plugins_dir}/ ${destination_machine}:${destination_plugins_dir} --delete
+    sudo rsync -aCvz -e "ssh -i /root/.ssh/id_rsa" ${source_base_dir}/ ${destination_machine}:${destination_base_dir} --delete --exclude=install
     rc=$?
     if [ ${rc} -ne 0 ]; then
-        echo "Error syncing plugins! rsync error code is: ${rc}"
+        echo "Error syncing NRDS Client and Plugins! rsync error code is: ${rc}"
         exit 1
     fi
 
     echo ""
-    echo "Plugins now synced."
+    echo "NRDS Client and Nagios Plugins now synced."
+    echo ""
+
+
+    echo ""
+    echo "Copying Nagios NRDS config...to ${destination_base_dir}/nrds-client on ${destination_machine}."
+    echo ""
+
+    #
+    # Move the config to the same directory that the nrds client is in! 
+    #
+
+    scp ${source_configs_dir}/${profile}.nrds.cfg ${destination_machine}:${destination_config_dir}
+    if [ ${rc} -ne 0 ]; then
+        echo "Error! Could not scp ${source_configs_dir}/${profile}.nrds.cfg to: ${destination_machine}:${destination_config_dir}"
+        exit 1
+    fi
+
+    echo ""
+    echo "Config now copied."
     echo ""
 
     exit 0
-
-    #
-    # Syncing NRDS Client files
-    #
-    
-    # -e flag with the ssh command and identify file not needed in production version!
-    sudo rsync -aCvz -e "ssh -i /root/.ssh/id_rsa" ${source_clients_dir}/ ${destination_machine}:${destination_clients_dir} --delete
-    rc=$?
-    if [ ${rc} -ne 0 ]; then
-        echo "Error syncing NRDS clients! rsync error code is: ${rc}"
-        exit 1
-    fi
-
-    echo ""
-    echo "Plugins now synced."
-    echo ""
-
-
-
-    echo ""
-    echo "Syncing configs..."
-    echo ""
-    echo ""
-    echo "Syncing configs to: ${destination_machine}"
-    echo ""
-
-    #
-    # Move the correct config to the target machine
-    #
-
-    sudo rsync -aCvz -e "ssh -i /root/.ssh/id_rsa" ${source_configs_dir}/${profile}.nrds.cfg ${destination_machine}:${destination_configs_dir} --delete
-    if [ ${rc} -ne 0 ]; then
-        echo "Error syncing configs! rsync error code is: ${rc}"
-        exit 1
-    fi
-
-    echo ""
-    echo "Configs now synced."
-    echo ""
 
     echo ""
     echo "Checking user is correct."
@@ -151,7 +118,7 @@ fi
     nagios_user_uid=`grep -i "nagios_user_uid" ${installer_config_file} | sed -e 's/nagios_user_uid=//' | tr -d \"`
     nagios_group_gid=`grep -i "nagios_group_gid" ${installer_config_file} | sed -e 's/nagios_group_gid=//' | tr -d \"`
 
-    ssh ${destination_machine} ${destination_plugins_dir}/nagios-plugins/check_uidgid.sh ${nagios_user_uid} ${nagios_group_gid} ${destination_plugins_dir} ${destination_configs_dir}
+    ssh ${destination_machine} ${destination_base_dir}/nagios-plugins/check_uidgid.sh ${nagios_user_uid} ${nagios_group_gid} ${destination_base_dir} ${destination_configs_dir}
     rc=$?
     if [ ${rc} -ne 0 ]; then
         echo "Error remotely executing: check_uidgid.sh"
