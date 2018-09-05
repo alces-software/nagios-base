@@ -56,7 +56,7 @@ fi
 # Get nagios-base Repo URL from config file
 #
 
-nagios_base_repo=`grep -i "nagios_plugins_repo" ${installer_config_file} | sed -e 's/nagios_plugins_repo=//' | tr -d \"`
+nagios_base_repo=`grep -i "nagios_base_repo" ${installer_config_file} | sed -e 's/nagios_base_repo=//' | tr -d \"`
 
 
 #
@@ -74,7 +74,7 @@ source_base_dir=`grep -i "source_base_dir" ${installer_config_file} | sed -e 's/
 #   Typically /opt/alces/nagios-base
 #
 
-git clone ${nagios_plugins_repo} ${source_base_dir}
+git clone ${nagios_base_repo} ${source_base_dir}
 rc=$?
 if [ ${rc} -ne 0 ]; then
     echo "Error cloning repo!"
