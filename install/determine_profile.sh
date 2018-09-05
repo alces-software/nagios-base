@@ -44,12 +44,12 @@ if [ ${rc} -ne 0 ]; then
     exit 1
 fi
 
-nodeattr -n ${genders_group} > ${cluster_machines}
-rc=$?
-if [ ${rc} -ne 0 ]; then
-    echo "Error, unable to get the output of nodeattr -n all"
-    exit 1
-fi
+#nodeattr -n ${genders_group} > ${cluster_machines}
+#rc=$?
+#if [ ${rc} -ne 0 ]; then
+#    echo "Error, unable to get the output of nodeattr -n all"
+#    exit 1
+#fi
 
 #
 # Not a very "efficient" way of doing this:- is this a problem? It is done this way for it's simplicity.
