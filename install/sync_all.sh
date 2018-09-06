@@ -5,6 +5,11 @@ installer_config_file="nagios_install.cfg"
 source_base_dir=`grep -i "source_base_dir" ${installer_config_file} | sed -e 's/source_base_dir=//' | tr -d \"`
 echo ${source_base_dir}
 
+if [ -z ${source_base_dir} ]; then
+    echo "Error! Base repo directory is not set!"
+    exit 1
+fi
+
 if [ ! -d ${source_base_dir} ]; then
     echo "Error! Base repo not found!"
     exit 1
@@ -14,6 +19,11 @@ echo "Base dir is at: ${source_base_dir}"
 
 source_configs_dir=`grep -i "source_configs_dir" ${installer_config_file} | sed -e 's/source_configs_dir=//' | tr -d \"`
 echo ${source_configs_dir}
+
+if [ -z ${source_configs_dir} ]; then
+    echo "Error! Source configs directory is not set!"
+    exit 1
+fi
 
 if [ ! -d ${source_configs_dir} ]; then
     echo "Error! Configs directory not found!"
@@ -95,7 +105,7 @@ fi
     # Move the config to the same directory that the nrds client is in! 
     #
 
-    scp ${source_configs_dir}/${profile}.nrds.cfg ${destination_machine}:${destination_config_dir}
+    scp ${source_configs_dir}/${profile}.nrds.cfg ${destination_machine}:${destination_config_dir}/nrds.cfg
     if [ ${rc} -ne 0 ]; then
         echo "Error! Could not scp ${source_configs_dir}/${profile}.nrds.cfg to: ${destination_machine}:${destination_config_dir}"
         exit 1

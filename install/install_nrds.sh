@@ -70,9 +70,12 @@ source_base_dir=`grep -i "source_base_dir" ${installer_config_file} | sed -e 's/
 #   and a limited but defined set of plugin dependencies.
 #   Also will store scripts for checking the Nagios User is correct
 #      and creating the cronjob.
-#   The repo that is stored will be placed in ${source_plugins_dir}.
+#   The repo that is stored will be placed in ${source_base_dir}.
 #   Typically /opt/alces/nagios-base
 #
+
+echo "Nagios Base Repo is: ${nagios_base_repo}"
+echo "Nagios Base Directory is: ${source_base_dir}"
 
 git clone ${nagios_base_repo} ${source_base_dir}
 rc=$?
@@ -87,7 +90,9 @@ fi
 #
 
 nagios_config_repo=`grep -i "nagios_config_repo" ${installer_config_file} | sed -e 's/nagios_config_repo=//' | tr -d \"`
+echo ""
 echo "Nagios Config Repository is: ${nagios_config_repo}"
+echo ""
 
 #
 # Get the local directory that the configs repo will be stored.
@@ -103,12 +108,15 @@ source_configs_dir=`grep -i "source_configs_dir" ${installer_config_file} | sed 
 test_hostname="controller.pri.csf3.alces.network"
 
 this_cluster=`echo ${test_hostname} | sed -e 's/controller.pri.\(.*\).alces.network/\1/'`
+echo ""
 echo "Cluster is: ${this_cluster}"
+echo ""
 
 branch=${this_cluster}
 
+echo ""
 echo "Cloning repo: ${nagios_config_repo}, branch: ${branch}"
-
+echo ""
 
 #
 # Clone nagios-configs, which is the repo containing configs 
