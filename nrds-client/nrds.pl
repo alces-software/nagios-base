@@ -49,7 +49,7 @@ EOH
 	exit( 0);
 }
 
-my $configfile = "/usr/local/nrdp/clients/nrds/nrds.cfg";
+my $configfile = "/usr/local/nagios-base/nrds-client/nrds.cfg";
 my $print_help = 0;
 my $print_release = 0;
 my $hostname = "";
