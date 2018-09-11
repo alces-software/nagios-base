@@ -24,8 +24,6 @@ this_host=`hostname -f | sed -e s/.alces.network$//g`
 echo "${this_host}" | grep -i "^controller\."
 is_controller=$?
 
-# dev
-is_controller=0
 
 if [ ${is_controller} -ne 0 ]; then
     echo "This must be run on the controller!"
@@ -103,9 +101,6 @@ source_configs_dir=`grep -i "source_configs_dir" ${installer_config_file} | sed 
 # 
 # Determine which cluster this is, I will fetch a configuration that is specific to my cluster.
 #
-
-# dev
-test_hostname="controller.pri.csf3.alces.network"
 
 this_cluster=`echo ${test_hostname} | sed -e 's/controller.pri.\(.*\).alces.network/\1/'`
 echo ""
