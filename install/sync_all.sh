@@ -139,7 +139,29 @@ fi
     echo "User correct."
     echo ""
 
-#done < cluster_monitoring_profile.cfg
+    #
+    # Check the crontab is fine
+    #
+    # Let's not mess around with this too much. 
+    # Just get something functional !
+    # 
+
+    echo ""
+    echo "Checking nagios user's crontab..."
+    echo ""
+    
+    ssh ${destination_machine} ${destination_base_dir}/nagios-plugins/check_nagioscron.sh
+    rc=$?
+    if [ ${rc} -ne 0 ]; then
+        echo "Error remote executing: check_nagioscron.sh"
+	exit 1
+    fi
+
+    echo ""
+    echo "Crontab is fine."
+    echo ""
+
+done < cluster_monitoring_profile.cfg
 
 echo "Done."
 

@@ -44,12 +44,12 @@ if [ ${rc} -ne 0 ]; then
     exit 1
 fi
 
-#nodeattr -n ${genders_group} > ${cluster_machines}
-#rc=$?
-#if [ ${rc} -ne 0 ]; then
-#    echo "Error, unable to get the output of nodeattr -n all"
-#    exit 1
-#fi
+nodeattr -n ${genders_group} > ${cluster_machines}
+rc=$?
+if [ ${rc} -ne 0 ]; then
+    echo "Error, unable to get the output of nodeattr -n all"
+    exit 1
+fi
 
 #
 # Not a very "efficient" way of doing this:- is this a problem? It is done this way for it's simplicity.
@@ -61,6 +61,11 @@ fi
 # For instance:
 #     In this script, infra02 will be given a 'basic' profile, because all other infra nodes have basic.
 #
+
+if [ ! -f ${cluster_machines} ]; then
+    echo "Error! File: ${cluster_machines} not found!"
+    exit 1
+fi
 
 while read cluster_machine; do
 
@@ -91,5 +96,12 @@ while read cluster_machine; do
     done < ${approx_host_to_profile}
 
 done < ${cluster_machines}
+
+if [ ! -f cluster_monitoring_profile.cfg ]; then
+    echo "Error! File cluster_monitoring_profile.cfg is missing"
+    exit 1
+else
+    echo "File: cluster_monitoring_profile.cfg is now available."
+fi
 
 exit 0

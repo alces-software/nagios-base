@@ -135,5 +135,6 @@ fi
 # OK, launch sync script.
 # 
 
+bash determine_profile.sh
 
 exit 0
