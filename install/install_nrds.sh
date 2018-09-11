@@ -132,9 +132,12 @@ if [ ${rc} -ne 0 ]; then
 fi
 
 #
-# OK, launch sync script.
+# OK, now launch the sync script
 # 
 
-bash determine_profile.sh
+echo ""
+echo "OK, now launch the sync script."
+echo ""
+
 
 exit 0

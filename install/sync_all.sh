@@ -2,6 +2,18 @@
 
 installer_config_file="nagios_install.cfg"
 
+#
+#
+# Add this file to the nagios_install.cfg!
+#
+#
+
+if [ ! -f cluster_monitoring_profile.cfg ]; then
+    echo "Error! cluster_monitoring_profile.cfg not found."
+    echo "Please create cluster_monitoring_profile.cfg so I know which machines and which profiles to synchronize files to"
+    exit 1
+fi	
+
 source_base_dir=`grep -i "source_base_dir" ${installer_config_file} | sed -e 's/source_base_dir=//' | tr -d \"`
 echo ${source_base_dir}
 
@@ -58,16 +70,13 @@ fi
 # 1) Rsync will not overwrite a file with a duplicate copy.
 #
 
-#while read machine_profile_entry; do
-    machine_profile_entry="node01:nodes"
+while read machine_profile_entry; do
     echo ${machine_profile_entry}
     #
     # Get destination machine.
     #
     destination_machine=`echo ${machine_profile_entry} | cut -d: -f1`
 
-    #dev 
-    destination_machine="127.0.0.1"
     echo "destination_machine: ${destination_machine}"
     
     #
@@ -150,7 +159,7 @@ fi
     echo "Checking nagios user's crontab..."
     echo ""
     
-    ssh ${destination_machine} ${destination_base_dir}/nagios-plugins/check_nagioscron.sh
+    ssh ${destination_machine} ${destination_base_dir}/nagios-plugins/check_nagioscrontab.sh
     rc=$?
     if [ ${rc} -ne 0 ]; then
         echo "Error remote executing: check_nagioscron.sh"
