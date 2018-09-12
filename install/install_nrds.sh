@@ -15,7 +15,7 @@ if [ `id -u` -ne 0 ]; then
     exit 1
 fi
 
-this_host=`hostname -f | sed -e s/.alces.network$//g`
+this_host=`hostname -f | sed -e 's/.alces.network$//g'`
 
 #
 # Make sure I am being run on the controller node
@@ -102,7 +102,7 @@ source_configs_dir=`grep -i "source_configs_dir" ${installer_config_file} | sed 
 # Determine which cluster this is, I will fetch a configuration that is specific to my cluster.
 #
 
-this_cluster=`echo ${test_hostname} | sed -e 's/controller.pri.\(.*\).alces.network/\1/'`
+this_cluster=`echo ${this_host} | sed -e 's/controller.pri.\(.*\).alces.network/\1/'`
 echo ""
 echo "Cluster is: ${this_cluster}"
 echo ""
