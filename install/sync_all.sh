@@ -124,8 +124,6 @@ while read machine_profile_entry; do
     echo "Config now copied."
     echo ""
 
-    exit 0
-
     echo ""
     echo "Checking user is correct."
     echo ""
