@@ -33,8 +33,13 @@ rc=$?
 if [ ${rc} -ne 0 ]; then
     echo "Error! Expected user: ${expected_nagios_user} does not exist!"
     echo "Calling create_usergroup.sh, I'm out of here..."
-    bash ../manual_checks/create_usergroup.sh ${expected_nagios_uid}
-    exit ${rc}
+    source /usr/local/nagios-base/manual-checks/create_usergroup.sh ${expected_nagios_uid} ${expected_nagios_gid}
+    rc=$?
+    if [ ${rc} -ne 0 ]; then
+        exit ${rc}
+    else
+        exit 0
+    fi
 fi
 
 #

@@ -15,6 +15,7 @@ expected_gid=$2
 #
 # First add the Nagios Group
 #
+
 groupadd -g ${expected_gid} nagios
 rc=$?
 if [ ${rc} -ne 0 ]; then
@@ -22,7 +23,7 @@ if [ ${rc} -ne 0 ]; then
     exit 1
 fi
 
-useradd -u ${expected_uid} -g ${expected_gid} nagios
+useradd -r -u ${expected_uid} -g ${expected_gid} nagios
 rc=$?
 if [ ${rc} -ne 0 ]; then
     echo "Error! Unable to add user: \"nagios\" as uid: ${expected_uid} to group with gid: ${expected_gid}"

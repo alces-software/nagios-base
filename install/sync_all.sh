@@ -93,8 +93,7 @@ while read machine_profile_entry; do
     echo "Syncing NRDS Client and Nagios plugins to directory: ${destination_base_dir} on machine:  ${destination_machine}"
     echo ""
 
-    # -e flag with the ssh command and identify file not needed in production version!
-    sudo rsync -aCvz -e "ssh -i /root/.ssh/id_rsa" ${source_base_dir}/ ${destination_machine}:${destination_base_dir} --delete --exclude=install
+    sudo rsync -aCvz ${source_base_dir}/ ${destination_machine}:${destination_base_dir} --delete --exclude=install
     rc=$?
     if [ ${rc} -ne 0 ]; then
         echo "Error syncing NRDS Client and Plugins! rsync error code is: ${rc}"
@@ -135,7 +134,7 @@ while read machine_profile_entry; do
     nagios_user_uid=`grep -i "nagios_user_uid" ${installer_config_file} | sed -e 's/nagios_user_uid=//' | tr -d \"`
     nagios_group_gid=`grep -i "nagios_group_gid" ${installer_config_file} | sed -e 's/nagios_group_gid=//' | tr -d \"`
 
-    ssh ${destination_machine} ${destination_base_dir}/nagios-plugins/check_uidgid.sh ${nagios_user_uid} ${nagios_group_gid} ${destination_base_dir} ${destination_configs_dir}
+    ssh ${destination_machine} "/usr/local/nagios-base/nagios-plugins/check_uidgid.sh" ${nagios_user_uid} ${nagios_group_gid} ${destination_base_dir} ${destination_config_dir}
     rc=$?
     if [ ${rc} -ne 0 ]; then
         echo "Error remotely executing: check_uidgid.sh"
@@ -157,7 +156,7 @@ while read machine_profile_entry; do
     echo "Checking nagios user's crontab..."
     echo ""
     
-    ssh ${destination_machine} ${destination_base_dir}/nagios-plugins/check_nagioscrontab.sh
+    ssh ${destination_machine} "/usr/local/nagios-base/nagios-plugins/check_nagioscrontab.sh"
     rc=$?
     if [ ${rc} -ne 0 ]; then
         echo "Error remote executing: check_nagioscron.sh"
