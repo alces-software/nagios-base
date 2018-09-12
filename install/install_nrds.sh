@@ -102,7 +102,7 @@ source_configs_dir=`grep -i "source_configs_dir" ${installer_config_file} | sed 
 # Determine which cluster this is, I will fetch a configuration that is specific to my cluster.
 #
 
-this_cluster=`echo ${this_host} | sed -e 's/controller.pri.\(.*\).alces.network/\1/'`
+this_cluster=`echo ${this_host} | sed -e 's/controller.pri.\(.*\)/\1/'`
 echo ""
 echo "Cluster is: ${this_cluster}"
 echo ""
