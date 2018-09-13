@@ -24,6 +24,8 @@ this_host=`hostname -f | sed -e 's/.alces.network$//g'`
 echo "${this_host}" | grep -i "^controller\."
 is_controller=$?
 
+#dev
+is_controller=0
 
 if [ ${is_controller} -ne 0 ]; then
     echo "This must be run on the controller!"
@@ -118,7 +120,7 @@ echo ""
 #   The repo that is cloned will be placed in ${source_configs_dir}.
 #   Typically /opt/alces/nagios-configs
 #
-
+branch="viking"
 git clone -b ${branch} ${nagios_config_repo} ${source_configs_dir}
 rc=$?
 if [ ${rc} -ne 0 ]; then
