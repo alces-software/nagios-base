@@ -1,0 +1,1 @@
+0 11 * * * root /root/alces-tripwire-check.sh > /dev/null 2>&1
