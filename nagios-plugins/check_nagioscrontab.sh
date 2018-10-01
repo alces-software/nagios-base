@@ -22,7 +22,7 @@ if [ ${rc} -ne 0 ]; then
     echo ""
     echo "Restoring nagios user's crontab..."
     echo ""
-    source "/usr/local/nagios-base/manual-checks/create_cronjob.sh" 3
+    source "/opt/nagios/manual-checks/create_cronjob.sh" 3
     rc=$?
     if [ ${rc} -ne 0 ]; then
         echo "Error restoring nagios user's crontab !"

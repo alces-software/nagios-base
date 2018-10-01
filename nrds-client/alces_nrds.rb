@@ -1,6 +1,6 @@
 #!/bin/usr/ruby
 
-nrds_config="/usr/local/nagios-base/nrds-client/nrds.cfg.dev"
+nrds_config="/opt/nagios/nrds-client/nrds.cfg.dev"
 
 puts nrds_config
 

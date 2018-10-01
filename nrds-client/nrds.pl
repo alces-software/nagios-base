@@ -9,12 +9,12 @@
 
 use Getopt::Long;
 
-require "/usr/local/nrdp/clients/nrds/nrds_common.pl";
+require "/opt/nagios/nrdp/clients/nrds/nrds_common.pl";
 
 my $RELEASE = "Revision 0.1";
 my ( $OS, $ARCH, $OS_VER) = get_os_info();
 
-my $nrds_updater = "/usr/local/nrdp/clients/nrds/nrds_updater.pl";
+my $nrds_updater = "/usr/nagios/nrdp/clients/nrds/nrds_updater.pl";
 
 # defaults
 my $PATH="/bin:/usr/bin:/usr/sbin";
@@ -49,7 +49,7 @@ EOH
 	exit( 0);
 }
 
-my $configfile = "/usr/local/nagios-base/nrds-client/nrds.cfg";
+my $configfile = "/opt/nagios/nrds-client/nrds.cfg";
 my $print_help = 0;
 my $print_release = 0;
 my $hostname = "";
