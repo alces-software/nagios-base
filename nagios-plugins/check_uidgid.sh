@@ -23,14 +23,14 @@ if [ -z ${destination_plugins_dir} ] || [ -z ${destination_configs_dir} ]; then
 fi
 
 #
-# check nagios user exists
-# - it is not the job of this script to ensure the nagios user exists, but that the nagios user that does
-# exist has the correct UID and GID
+# This script will delegate user creation of nagios to another script and runs if at least any one of the conditions are true:
+# there is no nagios user installed
+# this nagios user's UID is not as should be expected
+# the nagios user's GID is not as should be expected
 #
-
 this_nagios_user=`id -u ${expected_nagios_user}`
 rc=$?
-if [ ${rc} -ne 0 ]; then
+if [ ${rc} -ne 0 ] || [ "${this_nagios_user}" != "${expected_nagios_uid}" ] || [ "${this_nagios_group}" != "${expected_nagios_gid}" ]; then
     echo "Error! Expected user: ${expected_nagios_user} does not exist!"
     echo "Calling create_usergroup.sh, I'm out of here..."
     source /usr/local/nagios-base/manual-checks/create_usergroup.sh ${expected_nagios_uid} ${expected_nagios_gid}
@@ -42,76 +42,27 @@ if [ ${rc} -ne 0 ]; then
     fi
 fi
 
-#
-# check nagios group exists
-# - it is not the purpose of this script to create the nagios group, but to ensure that the existing nagios group
-# has the correct UID and GID.
-#
-
 this_nagios_group=`id -g ${expected_nagios_group}`
 rc=$?
 if [ ${rc} -ne 0 ]; then
     echo "Error! Expected group: ${expected_nagios_group} does not exist!"
     exit ${rc}
+    source /usr/local/nagios-base/manual-checks/create_usergroup.sh ${expected_nagios_uid} ${expected_nagios_gid}
+    rc=$?
+    if [ ${rc} -ne 0 ]; then
+        exit ${rc}
+    else
+        exit 0
+    fi
 fi
+I
 
+# 
+# If the UID/GID was incorrect,
+# Correct file ownership.
 #
-# If the UID or GID is incorrect, then remove the user
-# and create it fresh, otherwise skip.
-#
-
-echo ""
-echo "Checking user and group ID..."
-echo ""
 
 if [ "${this_nagios_user}" != "${expected_nagios_uid}" ] || [ "${this_nagios_group}" != "${expected_nagios_gid}" ]; then
-    echo ""
-    echo "Nagios UID and GID not suitable, remediating..."
-    echo ""
-
-    #
-    # We do not want a nagios user /home directory on these systems.
-    #
-
-    if [ ${this_nagios_user} -ge 1000 ]; then
-        echo "${expected_nagios_user} has a regular user account."
-	echo "Removing /home/${expected_nagios_user}"
-	rm -rf /home/${expected_nagios_user}
-	rc=$?
-	if [ ${rc} -ne 0 ]; then
-	    echo "Unable to remove home directory: /home/${expected_nagios_user}"
-	    echo "Maybe it didn't exist anyway?"
-	fi
-    fi
-
-    #
-    # Assign new UID to nagios user - this will be a system ID ( < 1000 ), 810 by default
-    #
-    usermod -u ${expected_nagios_uid} ${expected_nagios_user}
-    rc=$?
-    if [ ${rc} -ne 0 ]; then
-        echo "Error! Unable to reassign uid: ${expected_nagios_uid} to user: ${expected_nagios_user}."
-	exit 1
-    fi
-
-    echo ""
-    echo "${expected_nagios_user} has had its UID corrected."
-    echo ""
-
-    #
-    # Assign new GID to nagios group
-    #
-    groupmod -g ${expected_nagios_gid} ${expected_nagios_group}
-    rc=$?
-    if [ ${rc} -ne 0 ]; then
-        echo "Error! Unable to reassign gid: ${expected_nagios_gid} to group ${expected_nagios_group}"
-	exit 1
-    fi
-
-    echo ""
-    echo "${expected_nagios_group} has had its GID corrected."
-    echo ""
-
     #
     # Assign new GID and UID ownership to plugins directory.
     #

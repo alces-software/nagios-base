@@ -12,6 +12,8 @@ fi
 expected_uid=$1
 expected_gid=$2
 
+nagios_home=/usr/local/nagios/nagios-base
+
 #
 # First add the Nagios Group
 #
@@ -23,7 +25,7 @@ if [ ${rc} -ne 0 ]; then
     exit 1
 fi
 
-useradd -r -u ${expected_uid} -g ${expected_gid} nagios
+useradd --system --uid ${expected_uid} --gid ${expected_gid} --create-home --home-dir ${nagios_home} nagios
 rc=$?
 if [ ${rc} -ne 0 ]; then
     echo "Error! Unable to add user: \"nagios\" as uid: ${expected_uid} to group with gid: ${expected_gid}"
