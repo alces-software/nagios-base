@@ -12,7 +12,7 @@ fi
 expected_uid=$1
 expected_gid=$2
 
-nagios_home=/usr/local/nagios/nagios-base
+nagios_home=/opt/nagios/nagios-base
 
 #
 # First add the Nagios Group
