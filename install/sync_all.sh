@@ -134,12 +134,6 @@ while read machine_profile_entry; do
     nagios_user_uid=`grep -i "nagios_user_uid" ${installer_config_file} | sed -e 's/nagios_user_uid=//' | tr -d \"[:space:]`
     nagios_group_gid=`grep -i "nagios_group_gid" ${installer_config_file} | sed -e 's/nagios_group_gid=//' | tr -d \"[:space:]`
 
-    echo "${destination_base_dir}"
-    echo "${destination_base_dir}"/nagios-plugins/check_uidgid.sh
-    echo "${destination_base_dir}/nagios-plugins/check_uidgid.sh"
-
-    exit 0
-
     ssh ${destination_machine} "${destination_base_dir}/nagios-plugins/check_uidgid.sh" ${nagios_user_uid} ${nagios_group_gid} ${destination_base_dir} ${destination_config_dir}
     rc=$?
     if [ ${rc} -ne 0 ]; then
