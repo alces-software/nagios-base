@@ -12,13 +12,15 @@ fi
 expected_uid=$1
 expected_gid=$2
 
-nagios_home=/opt/nagios/nagios-base
+nagios_home=/opt/nagios
 
 #
 # First add the Nagios Group
 #
 
-groupadd -g ${expected_gid} nagios
+echo "expected_gid is: ${expected_gid}"
+
+groupadd --gid ${expected_gid} nagios
 rc=$?
 if [ ${rc} -ne 0 ]; then
     echo "Error! Unable to add group: \"nagios\" with gid: ${expected_gid}"
