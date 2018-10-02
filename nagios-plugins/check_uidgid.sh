@@ -55,7 +55,6 @@ if [ ${rc} -ne 0 ] || [ "${this_nagios_group}" != "${expected_nagios_gid}" ]; th
         exit 0
     fi
 fi
-I
 
 # 
 # If the UID/GID was incorrect,
