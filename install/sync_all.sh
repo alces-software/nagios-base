@@ -14,7 +14,7 @@ if [ ! -f cluster_monitoring_profile.cfg ]; then
     exit 1
 fi	
 
-source_base_dir=`grep -i "source_base_dir" ${installer_config_file} | sed -e 's/source_base_dir=//' | tr -d \"`
+source_base_dir=`grep -i "source_base_dir" ${installer_config_file} | sed -e 's/source_base_dir=//' | tr -d \"[:space:]`
 echo ${source_base_dir}
 
 if [ -z ${source_base_dir} ]; then
@@ -29,7 +29,7 @@ fi
 
 echo "Base dir is at: ${source_base_dir}"
 
-source_configs_dir=`grep -i "source_configs_dir" ${installer_config_file} | sed -e 's/source_configs_dir=//' | tr -d \"`
+source_configs_dir=`grep -i "source_configs_dir" ${installer_config_file} | sed -e 's/source_configs_dir=//' | tr -d \"[:space:]`
 echo ${source_configs_dir}
 
 if [ -z ${source_configs_dir} ]; then
@@ -46,7 +46,7 @@ fi
 #  Where the plugins will go
 #
 
-destination_base_dir=`grep -i "destination_base_dir" ${installer_config_file} | sed -e 's/destination_base_dir=//' | tr -d \"`
+destination_base_dir=`grep -i "destination_base_dir" ${installer_config_file} | sed -e 's/destination_base_dir=//' | tr -d \"[:space:]`
 echo ${destination_base_dir}
 
 if [ -z ${destination_base_dir} ]; then
@@ -57,7 +57,7 @@ fi
 #
 # WHere the config will go
 #
-destination_config_dir=`grep -i "destination_config_dir" ${installer_config_file} | sed -e 's/destination_config_dir=//' | tr -d \"`
+destination_config_dir=`grep -i "destination_config_dir" ${installer_config_file} | sed -e 's/destination_config_dir=//' | tr -d \"[:space:]`
 if [ -z ${destination_config_dir} ]; then
     echo "Error! Destination directory must be specified in : ${installer_config_file}"
     exit 1
@@ -131,8 +131,14 @@ while read machine_profile_entry; do
     # Check the nagios user's UID and GID is set correctly.
     #
 
-    nagios_user_uid=`grep -i "nagios_user_uid" ${installer_config_file} | sed -e 's/nagios_user_uid=//' | tr -d \"`
-    nagios_group_gid=`grep -i "nagios_group_gid" ${installer_config_file} | sed -e 's/nagios_group_gid=//' | tr -d \"`
+    nagios_user_uid=`grep -i "nagios_user_uid" ${installer_config_file} | sed -e 's/nagios_user_uid=//' | tr -d \"[:space:]`
+    nagios_group_gid=`grep -i "nagios_group_gid" ${installer_config_file} | sed -e 's/nagios_group_gid=//' | tr -d \"[:space:]`
+
+    echo "${destination_base_dir}"
+    echo "${destination_base_dir}"/nagios-plugins/check_uidgid.sh
+    echo "${destination_base_dir}/nagios-plugins/check_uidgid.sh"
+
+    exit 0
 
     ssh ${destination_machine} "${destination_base_dir}/nagios-plugins/check_uidgid.sh" ${nagios_user_uid} ${nagios_group_gid} ${destination_base_dir} ${destination_config_dir}
     rc=$?

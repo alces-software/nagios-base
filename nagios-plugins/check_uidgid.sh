@@ -30,7 +30,7 @@ fi
 #
 this_nagios_user=`id -u ${expected_nagios_user}`
 rc=$?
-if [ ${rc} -ne 0 ] || [ "${this_nagios_user}" != "${expected_nagios_uid}" ] || [ "${this_nagios_group}" != "${expected_nagios_gid}" ]; then
+if [ ${rc} -ne 0 ] || [ "${this_nagios_user}" != "${expected_nagios_uid}" ]; then
     echo "Error! Expected user: ${expected_nagios_user} does not exist!"
     echo "Calling create_usergroup.sh, I'm out of here..."
     source /opt/nagios/manual-checks/create_usergroup.sh ${expected_nagios_uid} ${expected_nagios_gid}
@@ -44,7 +44,7 @@ fi
 
 this_nagios_group=`id -g ${expected_nagios_group}`
 rc=$?
-if [ ${rc} -ne 0 ]; then
+if [ ${rc} -ne 0 ] || [ "${this_nagios_group}" != "${expected_nagios_gid}" ]; then
     echo "Error! Expected group: ${expected_nagios_group} does not exist!"
     exit ${rc}
     source /opt/nagios/manual-checks/create_usergroup.sh ${expected_nagios_uid} ${expected_nagios_gid}
