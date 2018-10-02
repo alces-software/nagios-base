@@ -93,7 +93,7 @@ while read machine_profile_entry; do
     echo "Syncing NRDS Client and Nagios plugins to directory: ${destination_base_dir} on machine:  ${destination_machine}"
     echo ""
 
-    sudo rsync -aCvz ${source_base_dir}/ ${destination_machine}:${destination_base_dir} --delete --exclude=install --exclude=README.md --exclude=Nagios\ Architecture.png 
+    sudo rsync -aCvz ${source_base_dir}/ ${destination_machine}:${destination_base_dir} --delete --exclude=install --exclude=README.md --exclude="Nagios\ Architecture.png" 
     rc=$?
     if [ ${rc} -ne 0 ]; then
         echo "Error syncing NRDS Client and Plugins! rsync error code is: ${rc}"
