@@ -9,7 +9,7 @@
 
 use Getopt::Long;
 
-require "/opt/nagios/nrdp/clients/nrds/nrds_common.pl";
+require "/opt/nagios/nrds-client/nrds_common.pl";
 
 my $RELEASE = "Revision 0.1";
 my ( $OS, $ARCH, $OS_VER) = get_os_info();
