@@ -27,49 +27,33 @@
 
 
 #
-# Run Tripwire, generate a report
+# Make sure I am running as root
 #
 
-tripwire --check
-
-#
-# Generate a plaintext version of the tripwire report
-#
-tripwire_report_dir="/var/lib/tripwire/report"
-latest_report=`ls -1tr ${tripwire_report_dir} | tail -n 1`
-
-echo ${latest_report} | grep "$(date +"%Y%m%d")"
-rc=$?
-if [ ${rc} -ne 0 ]; then
-    echo "Error! No Tripwire report for today!"
-    exit 3 
+if [ `id -u` -ne 0 ]; then
+    echo "Error! ${0} must be run as root."
+    exit 1
 fi
 
-todays_report="${tripwire_report_dir}/${latest_report}"
-todays_report_plaintext="${tripwire_report_dir}/twreport_today.txt"
-
-twprint --print-report --twrfile ${todays_report} > ${todays_report_plaintext}
-
 #
-# See if any changes have been reported.
+# run me in 
 #
-grep "Added Objects:\|Modified Objects:\|Removed Objects:" ${todays_report_plaintext} > /dev/null 2>&1
+
+yum -y install tripwire
 rc=$?
 if [ ${rc} -ne 0 ]; then
-    echo "No Change To Sections of the Filesystem monitored by Tripwire."
-    echo "0" > "${tripwire_report_dir}/.twstatus.txt"
-    exit 0
-else
-   echo "Tripwire has detected changes to the file system!"
-
-   #
-   # Update the Tripwire Database, to reflect the latest file system.
-   #
-   tripwire --update --twrfile ${todays_report} --accept-all
-   echo "1" > "${tripwire_report_dir}/.twstatus.txt"
-   exit 0
+    echo "Error! Unable to: yum -y install tripwire"
 fi
 
-echo "Error! Problem Grepping the plain text Tripwire Report file."
+#
+# Copy files to /etc/tripwire
+#
 
-exit 3
+tripwire_directory="/etc/tripwire"
+
+if [ ! -d ${tripwire_directory} ]; then
+    echo "Error! ${tripwire_directory} not found!"
+    exit 1
+fi
+
+cp twpol

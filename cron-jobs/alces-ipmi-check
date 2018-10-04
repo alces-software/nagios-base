@@ -1,6 +1,11 @@
 #!/bin/bash
 # script to retrieve IPMI sensors output
 
+#
+# presently run once per hour
+# place this script in /etc/cron.hourly
+#
+
 export PATH=/opt/metalware/opt/pdsh/bin:/opt/metalware/opt/genders/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin
 
 [[ ! -x /opt/metalware/opt/genders/bin/nodeattr ]] && exit 0
