@@ -120,7 +120,6 @@ echo ""
 #   The repo that is cloned will be placed in ${source_configs_dir}.
 #   Typically /opt/alces/nagios-configs
 #
-branch="viking"
 git clone -b ${branch} ${nagios_config_repo} ${source_configs_dir}
 rc=$?
 if [ ${rc} -ne 0 ]; then
