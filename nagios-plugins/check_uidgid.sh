@@ -22,17 +22,15 @@ if [ -z ${destination_plugins_dir} ] || [ -z ${destination_configs_dir} ]; then
     exit 2 
 fi
 
+
 #
-# This script will delegate user creation of nagios to another script and runs if at least any one of the conditions are true:
-# there is no nagios user installed
-# this nagios user's UID is not as should be expected
-# the nagios user's GID is not as should be expected
+# If user not present, create the user.
 #
+
 this_nagios_user=`id -u ${expected_nagios_user}`
 rc=$?
-if [ ${rc} -ne 0 ] || [ "${this_nagios_user}" != "${expected_nagios_uid}" ]; then
-    echo "Error! Expected user: ${expected_nagios_user} does not exist!"
-    echo "Calling create_usergroup.sh, I'm out of here..."
+if [ ${rc} -ne 0 ]; then
+    echo "User ${expected_nagios_user} not found, creating user : ${expected_agios_user}"
     source /opt/nagios/manual-checks/create_usergroup.sh ${expected_nagios_uid} ${expected_nagios_gid}
     rc=$?
     if [ ${rc} -ne 0 ]; then
@@ -42,11 +40,63 @@ if [ ${rc} -ne 0 ] || [ "${this_nagios_user}" != "${expected_nagios_uid}" ]; the
     fi
 fi
 
+#
+# If UID is not as expected, remove then re-create.
+#
+
+if [ "${this_nagios_user}" != "${expected_nagios_uid}" ]; then
+    userdel ${expected_nagios_user}
+    rc=$?
+    if [ ${rc} -ne 0 ]; then
+        echo "Error! Unable to remove user: ${expected_nagios_user} with uid: ${this_nagios_user}"
+	exit ${rc}
+    fi
+
+    #
+    # Create the user, with the correct UID and GID
+    #
+
+    source /opt/nagios/manual-checks/create_usergroup.sh ${expected_nagios_uid} ${expected_nagios_gid}
+    rc=$?
+    if [ ${rc} -ne 0 ]; then
+        exit ${rc}
+    else
+        exit 0
+    fi
+fi
+
+#
+# If Group does not exist, create the group.
+#
+
 this_nagios_group=`id -g ${expected_nagios_group}`
 rc=$?
-if [ ${rc} -ne 0 ] || [ "${this_nagios_group}" != "${expected_nagios_gid}" ]; then
-    echo "Error! Expected group: ${expected_nagios_group} does not exist!"
-    exit ${rc}
+if [ ${rc} -ne 0 ]; then
+    echo "Error! Group: ${expected_nagios_group} not found. Creating..."
+    source /opt/nagios/manual-checks/create_usergroup.sh ${expected_nagios_uid} ${expected_nagios_gid}
+    rc=$?
+    if [ ${rc} -ne 0 ]; then
+        exit ${rc}
+    else
+        exit 0
+    fi
+fi   
+
+#
+# If GID is not as expected, remove then re-create.
+#
+
+if [ "${this_nagios_group}" != "${expected_nagios_gid}" ]; then
+    echo "Error! GID incorrect!"
+
+    userdel ${this_nagios_user}
+    rc=$?
+    if [ ${rc} -ne 0 ]; then
+        echo "Error removing user and group ${this_nagios_user}"
+	exit ${rc}
+    fi
+
+    echo "Recreating User and Group"
     source /opt/nagios/manual-checks/create_usergroup.sh ${expected_nagios_uid} ${expected_nagios_gid}
     rc=$?
     if [ ${rc} -ne 0 ]; then
