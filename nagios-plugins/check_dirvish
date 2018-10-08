@@ -4,7 +4,7 @@
 checkstatusfile=/var/spool/nagios/dirvish.status
 checkstatus=`grep -i "check_dirvish_status=[0-1]$" ${checkstatusfile} | grep -o "[0-1]"`
 
-if [ ${checkstatus} -eq "0" ]; then
+if [ "${checkstatus}" -eq "0" ]; then
     # Nothing to do..
    echo "Nothing to do.."
    exit 0
@@ -27,7 +27,7 @@ head -n 1 $statusfile
 # Only the dirvish-cronjob, will cause this to happen, indicating that our check_dirvish
 #    tests for dirvish status file once per day
 
-if [  ${checkstatus} -eq "0" ]; then
+if [  "${checkstatus}" -eq "0" ]; then
     sed -i -e 's/(check_dirvish_status=)1/\10/' ${checkstatusfile}
     if [ $? -ne 0 ]; then
         exit 1
