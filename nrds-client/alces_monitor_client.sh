@@ -33,23 +33,33 @@ target_host="1"
 service_desc="2"
 check_path="3"
 
+nrdp_data=""
+
 for check in "${checks[@]}"
 do
     echo "${check}"
     
     host_checked=`echo ${check} | cut -d: -f ${target_host}`
-    service_description=`echo ${check} | cut -d: -f ${service_desc}`
-    check_to_run=`echo ${check} | cut -d: -f ${check_path}`
+    nrdp_data="${nrdp_data}${host_checked}"
 
+    service_description=`echo ${check} | cut -d: -f ${service_desc}`
+
+    #
+    # service_description only required on service checks.
+    #
+    if [ "${service_description}" != "${host_not_service}" ]; then
+            nrdp_data="${nrdp_data}\t${service_description}"
+    fi
+
+    check_to_run=`echo ${check} | cut -d: -f ${check_path}`
     output=$(${check_to_run})
     state=$?
 
-    if [ "${service_description}" == "${host_not_service}" ]; then
-        ./send_nrdp.sh -u "${url}" -t "${token}" -H "${host_checked}" -S "${state}" -o "${output}"
-    else
-        ./send_nrdp.sh -u "${url}" -t "${token}" -H "${host_checked}" -s "${service_description}" -S "${state}" -o "${output}"
-    fi
+    nrdp_data="${nrdp_data}\t${state}"
+    nrdp_data="${nrdp_data}\t${output}\n"
 done 
+
+echo -e "${nrdp_data}" | ./send_nrdp.sh -u "${url}" -t "${token}"
 
 exit 0
 
