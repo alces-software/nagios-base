@@ -1,7 +1,32 @@
 #!/bin/bash
 
+################################################################################
+# (c) Copyright 2018 Stephen F Norledge & Alces Software Ltd.                  #
+#                                                                              #
+# HPC Cluster Toolkit                                                          #
+#                                                                              #
+# This file/package is part of the HPC Cluster Toolkit                         #
+#                                                                              #
+# This is free software: you can redistribute it and/or modify it under        #
+# the terms of the GNU Affero General Public License as published by the Free  #
+# Software Foundation, either version 3 of the License, or (at your option)    #
+# any later version.                                                           #
+#                                                                              #
+# This file is distributed in the hope that it will be useful, but WITHOUT     #
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or        #
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License #
+# for more details.                                                            #
+#                                                                              #
+# You should have received a copy of the GNU Affero General Public License     #
+# along with this product.  If not, see <http://www.gnu.org/licenses/>.        #
+#                                                                              #
+# For more information on Alces Software, please visit:                        #
+# http://www.alces-software.org/                                               #
+#                                                                              #
+################################################################################
+
 #
-# This script reads a config file, comprised of meta-data and lines that define system checks.
+# This script reads a config file, consisting of meta-data and lines that define system checks.
 # Each token in the line is delimited by colons. 
 # Each token is passed as argument to either a check or a script - send_nrdp.sh.
 # The output and return code of each check is also passed as arguments to the send_nrdp.sh script

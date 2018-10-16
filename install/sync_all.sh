@@ -87,35 +87,35 @@ while read -r machine_profile_entry; do
 
 
     echo ""
-    echo "Syncing NRDS Client and Nagios Plugins..."
+    echo "Syncing Monitoring Client and Nagios Plugins..."
     echo ""
     echo ""
-    echo "Syncing NRDS Client and Nagios plugins to directory: ${destination_base_dir} on machine:  ${destination_machine}"
+    echo "Syncing Monitoring Client and Nagios plugins to directory: ${destination_base_dir} on machine:  ${destination_machine}"
     echo ""
 
     sudo rsync -aCvz ${source_base_dir}/ ${destination_machine}:${destination_base_dir} --delete --exclude=install --exclude=README.md --exclude="Nagios\ Architecture.png" 
     rc=$?
     if [ ${rc} -ne 0 ]; then
-        echo "Error syncing NRDS Client and Plugins! rsync error code is: ${rc}"
+        echo "Error syncing Monitoring Client and Plugins! rsync error code is: ${rc}"
         exit 1
     fi
 
     echo ""
-    echo "NRDS Client and Nagios Plugins now synced."
+    echo "Monitoring Client and Nagios Plugins now synced."
     echo ""
 
 
     echo ""
-    echo "Copying Nagios NRDS config...to ${destination_base_dir}/nrds-client on ${destination_machine}."
+    echo "Copying nagios-check.cfg config...to ${destination_base_dir}/nrds-client on ${destination_machine}."
     echo ""
 
     #
     # Move the config to the same directory that the nrds client is in! 
     #
 
-    scp ${source_configs_dir}/${profile}.nrds.cfg ${destination_machine}:${destination_config_dir}/nrds.cfg
+    scp ${source_configs_dir}/${profile}.nagios-check.cfg ${destination_machine}:${destination_config_dir}/nagios-check.cfg
     if [ ${rc} -ne 0 ]; then
-        echo "Error! Could not scp ${source_configs_dir}/${profile}.nrds.cfg to: ${destination_machine}:${destination_config_dir}"
+        echo "Error! Could not scp ${source_configs_dir}/${profile}.nagios-check.cfg to: ${destination_machine}:${destination_config_dir}"
         exit 1
     fi
 
