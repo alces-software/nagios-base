@@ -35,7 +35,7 @@
 #
 # Open config file
 #
-source nagios-check.cfg
+source /opt/nagios/nrds-client/nagios-check.cfg
 
 #
 # Arguments to ./send_nrdp.sh
@@ -84,7 +84,7 @@ do
     nrdp_data="${nrdp_data}\t${output}\n"
 done 
 
-echo -e "${nrdp_data}" | ./send_nrdp.sh -u "${url}" -t "${token}"
+echo -e "${nrdp_data}" | /opt/nagios/nrds-client/send_nrdp.sh -u "${url}" -t "${token}"
 
 exit 0
 
