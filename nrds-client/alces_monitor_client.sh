@@ -35,7 +35,7 @@
 #
 # Open config file
 #
-source alces_mc.cfg
+source nagios-checks.cfg
 
 #
 # Arguments to ./send_nrdp.sh
