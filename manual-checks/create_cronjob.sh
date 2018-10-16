@@ -11,7 +11,7 @@ this_host=`hostname -f | sed -e s/.alces.network$//g`
 
 echo "Adding cronjob to ${this_host}, checks will be run every ${nagios_interval} minutes."
 
-echo "*/${nagios_interval} * * * * /opt/nagios/nrds-client/alces-monitoring-client.sh -H ${this_host} > /dev/null 2>&1" >> nagios_cron.tmp
+echo "*/${nagios_interval} * * * * /opt/nagios/nrds-client/alces-monitoring-client.sh > /dev/null 2>&1" >> nagios_cron.tmp
 
 crontab -u nagios nagios_cron.tmp
 rc=$?
