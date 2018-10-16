@@ -35,7 +35,7 @@
 #
 # Open config file
 #
-source nagios-checks.cfg
+source nagios-check.cfg
 
 #
 # Arguments to ./send_nrdp.sh
