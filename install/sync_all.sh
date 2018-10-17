@@ -1,12 +1,31 @@
 #!/bin/bash
 
-installer_config_file="nagios_install.cfg"
+################################################################################
+# (c) Copyright 2018 Stephen F Norledge & Alces Software Ltd.                  #
+#                                                                              #
+# HPC Cluster Toolkit                                                          #
+#                                                                              #
+# This file/package is part of the HPC Cluster Toolkit                         #
+#                                                                              #
+# This is free software: you can redistribute it and/or modify it under        #
+# the terms of the GNU Affero General Public License as published by the Free  #
+# Software Foundation, either version 3 of the License, or (at your option)    #
+# any later version.                                                           #
+#                                                                              #
+# This file is distributed in the hope that it will be useful, but WITHOUT     #
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or        #
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License #
+# for more details.                                                            #
+#                                                                              #
+# You should have received a copy of the GNU Affero General Public License     #
+# along with this product.  If not, see <http://www.gnu.org/licenses/>.        #
+#                                                                              #
+# For more information on Alces Software, please visit:                        #
+# http://www.alces-software.org/                                               #
+#                                                                              #
+################################################################################
 
-#
-#
-# Add this file to the nagios_install.cfg!
-#
-#
+installer_config_file="nagios_install.cfg"
 
 if [ ! -f cluster_monitoring_profile.cfg ]; then
     echo "Error! cluster_monitoring_profile.cfg not found."
@@ -166,6 +185,23 @@ while read -r machine_profile_entry; do
     echo ""
     echo "Crontab is fine."
     echo ""
+
+    #
+    # Verify sudoers config is in place for nagios on the remote machine
+    # initial sync will find the nagios sudoers file is absent and copy the file in to place
+    #  
+    echo ""
+    echo "Verifying sudoers config"
+    echo ""
+
+    ssh -n ${destination_machine} "${destination_base_dir}/manual-checks/nagios_sudoers.sh"
+    rc=$?
+    if [ ${rc} -ne 0 ]; then
+        echo "Error remotely executing: nagios_sudoers.sh, return code: ${rc}"
+        exit ${rc}
+    fi
+
+    echo "Sudoers config for Nagios is fine."
 
 done < cluster_monitoring_profile.cfg
 
