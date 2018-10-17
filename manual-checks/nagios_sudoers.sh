@@ -25,30 +25,40 @@
 #                                                                              #
 ################################################################################
 
-if [ -z ${1} ]; then
-    echo "Please specify the interval, in minutes for Nagios checks."
-    echo "Usage : ${0} <interval> (in minutes)"
+# Check file exists
+
+source_parent_dir="/opt/nagios/deps/sudoers"
+target_parent_dir="/etc/sudoers.d"
+
+#
+# Check that nagios-monitoring sudoers file really exists first.
+#
+if [ ! -f "${source_parent_dir}/nagios-monitoring" ]; then
+    echo "Error! ${source_parent_dir}/nagios-monitoring not found!"
     exit 1
 fi
 
-nagios_interval=$1
-this_host=`hostname -f | sed -e s/.alces.network$//g`
-
-echo "Adding cronjob to ${this_host}, checks will be run every ${nagios_interval} minutes."
-
-echo "*/${nagios_interval} * * * * /opt/nagios/nrds-client/alces-monitoring-client.sh > /dev/null 2>&1" >> nagios_cron.tmp
-
-crontab -u nagios nagios_cron.tmp
-rc=$?
-if [ ${rc} -ne 0 ]; then
-    echo "Error! Unable to install new crontab!"
-    exit ${rc}
+#
+# If /etc/sudoers.d doesn't exist, we should probably raise an alarm bell.
+#
+if [ ! -d "${target_parent_dir}" ]; then
+    echo "Error! ${target_parent_dir} not found!"
+    exit 1
 fi
 
-rm -f nagios_cron.tmp
-rc=$?
-if [ ${rc} -ne 0 ]; then
-    echo "Warning! Could not remove nagios_cron.tmp"
+#
+# If the file does not exist on the system in the target location,
+#     then copy it there. 
+#     exit if we can't for some reason and report the error.
+# Exit
+#
+if [ ! -f "${target_parent_dir}/nagios-monitoring" ]; then
+    cp "${source_parent_dir}/nagios-monitoring" "${target_parent_dir}"
+    rc=$?
+    if [ ${rc} -ne 0 ]; then
+        echo "Error! Unable to copy ${source_parent_dir}/nagios-monitoring to ${target_parent_dir}"
+        exit ${rc}
+    fi      
 fi
 
 exit 0
