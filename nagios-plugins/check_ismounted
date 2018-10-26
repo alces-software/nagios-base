@@ -1,4 +1,4 @@
-#!/bin/bash -l
+#!/bin/bash
 
 # Nagios plugin to check filesystem is mounted using mtab
 fs=$1
