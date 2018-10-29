@@ -194,7 +194,9 @@ while read -r machine_profile_entry; do
     echo "Verifying sudoers config"
     echo ""
 
-    ssh -n ${destination_machine} "${destination_base_dir}/manual-checks/nagios_sudoers.sh"
+    #ssh -n ${destination_machine} "${destination_base_dir}/manual-checks/nagios_sudoers.sh"
+    ssh -n ${destination_machine} 'cp ${destination_base_dir}/deps/sudoers/nagios-monitoring /etc/sudoers.d'
+    # Instead of running this script, just overwrite the file.
     rc=$?
     if [ ${rc} -ne 0 ]; then
         echo "Error remotely executing: nagios_sudoers.sh, return code: ${rc}"
