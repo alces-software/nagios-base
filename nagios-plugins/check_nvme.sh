@@ -43,7 +43,7 @@ then
 fi
 
 # read smart information from nvme-cli
-LOG=$(nvme smart-log ${DISK})
+LOG=$(sudo /usr/sbin/nvme smart-log ${DISK})
 
 MESSAGE=""
 CRIT=false
