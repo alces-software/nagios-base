@@ -8,7 +8,7 @@ if [ "$fs" == "" ] ; then
    exit 3
 fi
 
-if [ `grep -c "$fs " /etc/mtab` -lt 1 ] ; then
+if [ `grep -c " $fs " /etc/mtab` -lt 1 ] ; then
    echo "Filesystem $fs not mounted"
    exit 1
 else
