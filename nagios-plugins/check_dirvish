@@ -1,6 +1,4 @@
-#!/bin/bash
-################################################################################
-# (c) Copyright 2007-2011 Alces Software Ltd                                   #
+# (c) Copyright 2018 Stephen F Norledge & Alces Software Ltd.                  #
 #                                                                              #
 # HPC Cluster Toolkit                                                          #
 #                                                                              #
@@ -24,85 +22,20 @@
 #                                                                              #
 ################################################################################
 
-# Script to check the status of the dirvish backup system
+#
+# check_dirvish and report status to nagios
+#
+status_file="/var/spool/nagios/dirvish.out"
 
-# Set site variables (edit as necessary)
-dirvishmaster=/etc/dirvish/master.conf
+dirvish_status=`tail -n 1 ${status_file}`
 
-if [ "$1" == "-v" ] ; then
-  echo "Setting verbose mode..."
-  VERBOSE=1
-else
-  VERBOSE=0
-fi
-
-# Check dirvish master config file is present
-[[ -f $dirvishmaster ]] || exit 3
-
-bank=`grep -A 1 -i bank /etc/dirvish/master.conf | grep -vi bank: | awk '{print $1}'`
-
-# Override automatic dirvish bank detection if required
-#bank=/users/backup
-
-
-# Step through all backups recorded and look for exit status
-success=0
-warning=0
-error=0
-failure=0
-
-# Look for a running backup
-running=`ps -ef | grep dirvish | grep -v grep | grep "/usr/bin/perl" | wc -l`
-
-for backup in `find $bank -maxdepth 3 -name summary`
-do
-   case `tail -1 $backup | cut -d: -f 2 | awk '{print $1}'` in
-      "success")
-          success=`expr $success + 1`
-          ;;
-      "warning")
-          if [ $VERBOSE -eq 1 ] ; then
-             echo "warning - $backup"
-          fi
-          warning=`expr $warning + 1`
-          ;;
-      "error")
-          if [ $VERBOSE  -eq 1 ] ; then
-             echo "error - $backup"
-          fi
-          error=`expr $error + 1`
-          ;;
-      *)
-          if [ $VERBOSE -eq 1 ] ; then
-             echo "failure - $backup"
-          fi
-          failure=`expr $failure + 1`
-          ;;
-   esac
-done
-
-# If dirvish was running when we performed our check, one backup directory will be incorrected detected as failed
-if [ $failure -gt 0 ] && [ $running -gt 0 ] ; then
-   failure=`expr $failure - 1`
-   if [ $VERBOSE -eq 1 ] ; then
-      echo "Detected running backup - skipping one failure report"
-   fi
-fi
-
-
-if [ $failure -gt 0 ] ; then
-   echo "Detected $failure failed dirvish backups ($error/$warning/$success backups with errors/warnings/successful)"
-   exit 2
-elif [ $error -gt 0 ] ; then
-   echo "Detected $error dirvish backup(s) with errors ($warning/$success backups with warnings/successful)"
-   exit 2
-elif [ $warning -gt 0 ] ; then
-   echo "Detected $warning dirvish backup(s) with warnings ($success backups successful)"
-   exit 1
-elif [ $success -gt 0 ] ; then
-   echo "Detected $success successful dirvish backup(s)"
-   exit 0
-else
-   echo "No dirvish backups recorded"
-   exit 0
+if [ "${dirvish_status}" == "0" ]; then
+    echo "${dirvish_status} - Dirvish OK"
+    exit ${dirvish_status}
+elif [ "${dirvish_status}" == "1" ]; then
+    echo "${dirvish_status} - WARNING: A Warning for a backup has occured!"
+    exit ${dirvish_status}
+elif [ "${dirvish_status}" == "2" ]; then
+    echo "CRITICAL! Failures or Errors for dirvish have occured!"
+    exit ${dirvish_status}
 fi
