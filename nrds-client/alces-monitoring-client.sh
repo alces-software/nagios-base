@@ -32,10 +32,42 @@
 # The output and return code of each check is also passed as arguments to the send_nrdp.sh script
 #
 
+
+
+#
+# We accept different config files, check if we are requested to run any
+#
+
+if [ "${1}" == "-d" ]; then
+
+    #
+    # OK, let's use the config file specified in the subsequent argument.
+    #
+
+    config_file=${2}
+
+    #
+    # If we get something empty, just proceed with the default.
+    #
+    
+    if [ -z "${config_file}" ]; then
+	    # if we find an empty string, just use the default
+	    config_file="/opt/nagios/nrds-client/nagios-check.cfg"
+    fi
+
+    if [ ! -f "${config_file}" ]; then
+	    echo "Error! ${config_file} not found!"
+	    exit 1
+    fi
+fi
+
+exit 0 
+
+
 #
 # Open config file
 #
-source /opt/nagios/nrds-client/nagios-check.cfg
+source ${config_file}
 
 #
 # Arguments to ./send_nrdp.sh

@@ -13,8 +13,10 @@ fi
 
 
 #
-# See if the Nagios user even has a crontab 
+# See if the Nagios user even has a crontab. They should do.
+# If not then restore the DEFAULT and manually repeair non-default entries.
 #
+
 nagios_crontab=`crontab -u nagios -l`
 rc=$?
 if [ ${rc} -ne 0 ]; then
@@ -25,7 +27,7 @@ if [ ${rc} -ne 0 ]; then
     source "/opt/nagios/manual-checks/create_cronjob.sh" 3
     rc=$?
     if [ ${rc} -ne 0 ]; then
-        echo "Error restoring nagios user's crontab !"
+        echo "Error restoring nagios user's DEFAULT crontab. I'm afraid at this stage, you will have to repair non-default crontab entries manually !"
         exit 1
     fi
 fi
