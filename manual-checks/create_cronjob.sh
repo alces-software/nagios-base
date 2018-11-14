@@ -26,8 +26,8 @@
 ################################################################################
 
 if [ -z ${1} ]; then
-    echo "Please specify the interval, in minutes for Nagios checks."
-    echo "Usage : ${0} <interval (in minutes)> [-d config_file]"
+    echo "Please specify the schedule, for Nagios checks."
+    echo "Usage: ${0} <schedule> [-d config_file]"
     exit 1
 fi
 
@@ -38,8 +38,9 @@ fi
 #
 
 if [ -z ${2} ]; then
-   nagios_checks_config_file=""
+   amc_config_file=""
 fi
+amc_config_file=$2
 
 #
 # Save current crontab
@@ -56,12 +57,12 @@ fi
 #
 unset current_crontab
 
-nagios_interval=$1
+nagios_cron_schedule=$1
 this_host=`hostname -f | sed -e s/.alces.network$//g`
 
-echo "Adding cronjob to ${this_host}, checks will be run every ${nagios_interval} minutes."
+echo "Adding cronjob to ${this_host} minutes."
 
-echo "*/${nagios_interval} * * * * /opt/nagios/nrds-client/alces-monitoring-client.sh -c ${nagios_checks_config_file} > /dev/null 2>&1" >> nagios_cron.tmp
+echo "${nagios_cron_schedule} /opt/nagios/nrds-client/alces-monitoring-client.sh -c ${amc_config_file} > /dev/null 2>&1" >> nagios_cron.tmp
 
 crontab -u nagios nagios_cron.tmp
 rc=$?

@@ -125,14 +125,17 @@ while read -r machine_profile_entry; do
 
 
     echo ""
-    echo "Copying nagios-check.cfg config...to ${destination_base_dir}/nrds-client on ${destination_machine}."
+    echo "Copying config files.."
     echo ""
 
     #
-    # Move the config to the same directory that the nrds client is in! 
+    # Move the configs to the same directory that the nrds client is in! 
+    # We *can* have multiple config files per profile for a machine.
+    # Where there are multiple config profiles for a machine, each one corresponds to a differnt frequency at which
+    # it will be run. The name of the config file is used to determine this.
     #
 
-    scp ${source_configs_dir}/${profile}.nagios-check.cfg ${destination_machine}:${destination_config_dir}/nagios-check.cfg
+    scp ${source_configs_dir}/${profile}.nagios-check*.cfg ${destination_machine}:${destination_config_dir}
     if [ ${rc} -ne 0 ]; then
         echo "Error! Could not scp ${source_configs_dir}/${profile}.nagios-check.cfg to: ${destination_machine}:${destination_config_dir}"
         exit 1
