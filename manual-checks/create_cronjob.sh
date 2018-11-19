@@ -26,8 +26,8 @@
 ################################################################################
 
 if [ -z ${1} ]; then
-    echo "Please specify the schedule, for Nagios checks."
-    echo "Usage: ${0} <schedule> [-d config_file]"
+    echo "Please specify the config file for Nagios checks."
+    echo "Usage: ${0} -d config_file"
     exit 1
 fi
 
@@ -37,7 +37,7 @@ fi
 # an empty string and use the default config.
 #
 
-if [ -z ${2} ]; then
+if [ -z ${1} ]; then
    amc_config_file=""
 fi
 amc_config_file=$2
@@ -57,12 +57,60 @@ fi
 #
 unset current_crontab
 
-nagios_cron_schedule=$1
-this_host=`hostname -f | sed -e s/.alces.network$//g`
 
-echo "Adding cronjob to ${this_host} minutes."
+#
+# create the cron schedule from the tag on the file name:
+#
+
+#
+# Parse the cron scheduling info in the file name
+#
+# e.g. nagios_config_A_E3_A_A_A.cfg
+#      A corresponds to * in cron syntax
+#      E corresponds to */ in cron syntax
+#      So in this example, A_E3_A_A_A is converted to it's cron-counterpart: * */3 * * * meaning every 3 minutes (default).
+#
+
+#
+# Extract the schedule from the filename
+# 
+# E3_A_A_A_A
+
+nagios_cron_sched=`echo "${amc_config_file}" | sed -e 's|nagios_check_\(.*\).cfg|\1|g'`
+echo ${nagios_cron_sched}
+#
+# Replace underscores with spaces
+# 
+# E3 A A A A
+
+nagios_cron_sched=`echo "${nagios_cron_sched}" | sed -e 's|_| |g'`
+
+
+#
+# Replace 'E' characters with a forward-slash '*/' character
+#
+# */3 A A A A
+nagios_cron_sched=`echo "${nagios_cron_sched}" | sed -e 's|E|\*\/|g'`
+
+
+#
+# Replace 'A' characters with asterisks.
+#
+# */3 * * *
+
+nagios_cron_sched=`echo "${nagios_cron_sched}" | sed -e 's|A|\*|g'`
+
+
+#
+# Append this entry to the nagios_cron.tmp file
+#
 
 echo "${nagios_cron_schedule} /opt/nagios/nrds-client/alces-monitoring-client.sh -c ${amc_config_file} > /dev/null 2>&1" >> nagios_cron.tmp
+
+
+#
+# go ahead and add the crontab from the file.
+#
 
 crontab -u nagios nagios_cron.tmp
 rc=$?
@@ -70,6 +118,11 @@ if [ ${rc} -ne 0 ]; then
     echo "Error! Unable to install new crontab!"
     exit ${rc}
 fi
+
+
+# 
+# Remove the tmp file 
+#
 
 rm -f nagios_cron.tmp
 rc=$?
