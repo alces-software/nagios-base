@@ -132,7 +132,7 @@ while read -r machine_profile_entry; do
     # Move the config to the same directory that the nrds client is in! 
     #
 
-    scp ${source_configs_dir}/${profile}.nagios-check.cfg ${destination_machine}:${destination_config_dir}/nagios-check.cfg
+    scp ${source_configs_dir}/${profile}.nagios-check*.cfg ${destination_machine}:${destination_config_dir}
     if [ ${rc} -ne 0 ]; then
         echo "Error! Could not scp ${source_configs_dir}/${profile}.nagios-check.cfg to: ${destination_machine}:${destination_config_dir}"
         exit 1
