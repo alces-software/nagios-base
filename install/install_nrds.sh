@@ -80,7 +80,7 @@ source_base_dir=`grep -i "source_base_dir" ${installer_config_file} | sed -e 's/
 echo "Nagios Base Repo is: ${nagios_base_repo}"
 echo "Nagios Base Directory is: ${source_base_dir}"
 
-git clone -b ${nagios_base_repo} ${source_base_dir}
+git clone -b dev ${nagios_base_repo} ${source_base_dir}
 rc=$?
 if [ ${rc} -ne 0 ]; then
     echo "Error cloning repo!"
@@ -112,7 +112,9 @@ echo ""
 echo "Cluster is: ${this_cluster}"
 echo ""
 
-branch=${this_cluster}
+# dev
+# branch=${this_cluster}
+branch=viking
 
 echo ""
 echo "Cloning repo: ${nagios_config_repo}, branch: ${branch}"

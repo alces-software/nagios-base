@@ -94,7 +94,10 @@ while read -r machine_profile_entry; do
     #
     # Get destination machine.
     #
-    destination_machine=`echo ${machine_profile_entry} | cut -d: -f1`
+
+    #dev
+    #destination_machine=`echo ${machine_profile_entry} | cut -d: -f1`
+    destination_machine="localhost"
 
     echo "destination_machine: ${destination_machine}"
     
