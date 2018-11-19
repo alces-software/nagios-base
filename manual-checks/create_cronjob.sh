@@ -25,18 +25,21 @@
 #                                                                              #
 ################################################################################
 
-if [ -z ${1} ]; then
-    echo "Please specify the interval, in minutes for Nagios checks."
-    echo "Usage : ${0} <interval> (in minutes)"
+if [ -z $1 ]; then
+    echo "Need to specify a config file to create a cron job for."
     exit 1
 fi
 
-nagios_interval=$1
-this_host=`hostname -f | sed -e s/.alces.network$//g`
+config_file=$1
 
-echo "Adding cronjob to ${this_host}, checks will be run every ${nagios_interval} minutes."
+if [ ! -f "${config_file}" ]; then
+    echo "${config_file} not found! Exiting..."
+    exit 1
+fi
 
-echo "*/${nagios_interval} * * * * /opt/nagios/nrds-client/alces-monitoring-client.sh > /dev/null 2>&1" >> nagios_cron.tmp
+nagios_interval=`grep -i "cron_schedule" ${config_file} | sed s|cron_schedule=\'\(.*)\'|\1|g`
+
+echo "${nagios_interval} /opt/nagios/nrds-client/alces-monitoring-client.sh > /dev/null 2>&1" >> nagios_cron.tmp
 
 crontab -u nagios nagios_cron.tmp
 rc=$?
