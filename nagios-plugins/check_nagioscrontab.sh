@@ -1,6 +1,6 @@
 #!/bin/bash
 
-config_file_dir="/opt/alces/nrds-client"
+config_file_dir="/opt/nagios/nrds-client"
 
 #
 # Is it because the user has been removed ?
