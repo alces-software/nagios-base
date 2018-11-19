@@ -1,5 +1,6 @@
 #!/bin/bash
 
+config_file_dir="/opt/alces/nrds-client"
 
 #
 # Is it because the user has been removed ?
@@ -20,14 +21,17 @@ rc=$?
 if [ ${rc} -ne 0 ]; then
     echo "No crontab for nagios user!"
     echo ""
-    echo "Restoring nagios user's crontab..."
+    echo "Restoring all nagios user's crontabs..."
     echo ""
-    source "/opt/nagios/manual-checks/create_cronjob.sh" 3
-    rc=$?
-    if [ ${rc} -ne 0 ]; then
-        echo "Error restoring nagios user's crontab !"
-        exit 1
-    fi
+
+    for config_file in `ls -1 ${config_file_dir} | grep -i "*nagios-check*`; do
+        source "/opt/nagios/manual-checks/create_cronjob.sh" ${config_file}
+        rc=$?
+        if [ ${rc} -ne 0 ]; then
+            echo "Error restoring nagios user\'s crontab !"
+            exit 1
+        fi
+    done
 fi
 
 
