@@ -15,16 +15,19 @@ if [ `id -u` -ne 0 ]; then
     exit 1
 fi
 
-this_host=`hostname -f | sed -e 's/.alces.network$//g'`
+# dev
+#this_host=`hostname -f | sed -e 's/.alces.network$//g'`
+#
+this_host=`hostname -f`
 
 #
 # Make sure I am being run on the controller node
 #
 
-echo "${this_host}" | grep -i "^controller\."
-is_controller=$?
+# dev
+# echo "${this_host}" | grep -i "^controller\."
+#is_controller=$?
 
-#dev
 is_controller=0
 
 if [ ${is_controller} -ne 0 ]; then
@@ -77,7 +80,7 @@ source_base_dir=`grep -i "source_base_dir" ${installer_config_file} | sed -e 's/
 echo "Nagios Base Repo is: ${nagios_base_repo}"
 echo "Nagios Base Directory is: ${source_base_dir}"
 
-git clone ${nagios_base_repo} ${source_base_dir}
+git clone -b ${nagios_base_repo} ${source_base_dir}
 rc=$?
 if [ ${rc} -ne 0 ]; then
     echo "Error cloning repo!"
