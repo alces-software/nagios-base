@@ -37,9 +37,16 @@ if [ ! -f "${config_file}" ]; then
     exit 1
 fi
 
-nagios_interval=`grep -i "cron_schedule" ${config_file} | sed "s|cron_schedule='\(.*\)'|\1|g"`
-echo "${nagios_interval}" " >> nagios_interval.test
+#
+# Extracts the cron schedule from the config
+#
+
+nagios_interval=`grep -i "cron_schedule" ${config_file} | sed "s|cron_schedule=\(.*\)|\1|g" | sed "s|'||g"`
 echo "${nagios_interval} /opt/nagios/nrds-client/alces-monitoring-client.sh > /dev/null 2>&1" >> nagios_cron.tmp
+
+#
+# Add cron job
+#
 
 crontab -u nagios nagios_cron.tmp
 rc=$?

@@ -36,6 +36,15 @@ if [ ${rc} -ne 0 ]; then
     done
 fi
 
+#
+# We need a way to transparently register new crontabs.
+# Just dump a new config file in the nagios-configs repo with a suitable name
+#    and it ends up with a cron entry.
+#
+
+# get a count of the number of config files in the config_file_dir
+# get a count of the number of cron entries in the crontab
+# make sure that we "append" and do not replace a cron entry.
 
 echo "Nagios User's crontab OK" > /dev/null 2>&1
 
