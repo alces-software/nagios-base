@@ -32,10 +32,26 @@
 # The output and return code of each check is also passed as arguments to the send_nrdp.sh script
 #
 
+if [ -z $1 ]; then
+    echo "Error! Usage: $0 -c <config_file>"
+    exit 1
+fi
+
+if [ "$1" == "-c" ]; then
+	config_file=$2
+	if [ -z $2 ]; then
+	    echo "Error, usage: $0 -c <config_file>"
+	fi
+fi
+
+if [ ! -f ${config_file} ]; then
+    echo "${config_file} not found!"
+fi
+
 #
 # Open config file
 #
-source /opt/nagios/nrds-client/nagios-check.cfg
+source ${config_file}
 
 #
 # Arguments to ./send_nrdp.sh
