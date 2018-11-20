@@ -41,8 +41,17 @@ fi
 # Extracts the cron schedule from the config
 #
 
+#
+# If crontab is not empty, save the content
+#
+cron_output=`crontab -u nagios -l`
+rc=$?
+if [ "${rc}" -eq "0" ]; then
+    echo "${cron_output}" >> nagios_cron.tmp
+fi
+
 nagios_interval=`grep -i "cron_schedule" ${config_file} | sed "s|cron_schedule=\(.*\)|\1|g" | sed "s|'||g"`
-echo "${nagios_interval} /opt/nagios/nrds-client/alces-monitoring-client.sh > /dev/null 2>&1" >> nagios_cron.tmp
+echo "${nagios_interval} /opt/nagios/nrds-client/alces-monitoring-client.sh -c ${config_file} > /dev/null 2>&1" >> nagios_cron.tmp
 
 #
 # Add cron job
