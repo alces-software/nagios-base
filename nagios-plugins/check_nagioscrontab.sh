@@ -25,6 +25,7 @@ if [ ${rc} -ne 0 ]; then
     echo ""
 
     for config_file in `ls -1 ${config_file_dir} | grep -i "*nagios-check*"`; do
+	echo "Adding crontab for: ${config_file}"
         source "/opt/nagios/manual-checks/create_cronjob.sh" ${config_file}
         rc=$?
         if [ ${rc} -ne 0 ]; then
