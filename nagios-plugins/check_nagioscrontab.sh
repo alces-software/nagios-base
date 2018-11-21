@@ -27,7 +27,7 @@ if [ ${rc} -ne 0 ]; then
     for config_file in `ls -1 ${config_file_dir} | grep -i "nagios-check"`; do
 	absolute_path_config_file="${config_file_dir}/${config_file}"
 	echo "Adding crontab for: ${absolute_path_config_file}"
-        source "/opt/nagios/manual-checks/create_cronjob.sh" ${absolute_path_config_file}
+        bash "/opt/nagios/manual-checks/create_cronjob.sh" ${absolute_path_config_file}
         rc=$?
         if [ ${rc} -ne 0 ]; then
             echo "Error restoring nagios user\'s crontab !"
