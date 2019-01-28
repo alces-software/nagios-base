@@ -51,7 +51,7 @@ if [ "$rc" -ne "0" ]; then
     echo "OK - $quota_mount not mounted." 
     exit 0
 else 
-    repquota $quota_mount > /dev/null 2>&1
+    sudo /usr/sbin/repquota $quota_mount > /dev/null 2>&1
     rc=$?
     if [ "$rc" -eq "0" ] && [ "$mount_expected" -eq "1" ]; then
         echo "OK - $quota_mount is mounted and Quotas are enabled."

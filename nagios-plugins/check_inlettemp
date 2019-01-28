@@ -52,6 +52,19 @@ do
       unknown=`expr $unknown + 1`
    else
 
+      #
+      # Set alert threshold based on type of node
+      #
+
+      echo "$file" | grep "^oss" > /dev/null 2>&1
+      if [ $?  == 0 ] ; then
+         lowalert=38
+         highalert=41
+      else
+         lowalert=35
+         highalert=40
+      fi
+      
       if [ $decval -ge $highalert ] ; then
          critical=`expr $critical + 1`
       elif [ $decval -ge $lowalert ] ; then
