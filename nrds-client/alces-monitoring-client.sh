@@ -92,8 +92,8 @@ do
             nrdp_data="${nrdp_data}\t${service_description}"
     fi
 
-    check_to_run=`echo ${check} | cut -d: -f ${check_path}`
-    output=$(${check_to_run})
+    eval "check_to_run=(`echo ${check} | cut -d: -f ${check_path}`)"
+    output="$("${check_to_run[@]}")"
     state=$?
 
     nrdp_data="${nrdp_data}\t${state}"
