@@ -27,12 +27,12 @@
 ################################################################################
 
 
-grep "$(date +"%b %e").*warning: Processing failed op" /var/log/messages
+grep "$(date +"%b %e").*warning: Processing failed op" /var/log/messages > /dev/null 2>&1
 rc=$?
 
 if [ "${rc}" -eq "0" ]; then
     echo "Processing failed op detected"
-    exit 2
+    exit 1 
 else
     echo "No processing failed op detected"
     exit 0
