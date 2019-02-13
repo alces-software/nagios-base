@@ -27,7 +27,7 @@
 ################################################################################
 
 
-grep "$(date +"%b %e").*warning: Processing failed op" /var/log/messages > /dev/null 2>&1
+sudo /usr/bin/grep "$(date +"%b %e %H").*warning: Processing failed op" /var/log/messages
 rc=$?
 
 if [ "${rc}" -eq "0" ]; then
