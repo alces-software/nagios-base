@@ -36,12 +36,12 @@
 searchstring="$1"
 logfile="$2"
 
-if [ -z $searchstring ] || [ -z $logfile ]; then
+if [ -z "$searchstring" ] || [ -z "$logfile" ]; then
     echo "Error! Usage: $0 <search string> <absolute path of log file>"
     exit 3
 fi 
 
-if [ ! -f $logfile ]; then
+if [ ! -f "$logfile" ]; then
     echo "File: $logfile not found!"
     exit 3
 fi
