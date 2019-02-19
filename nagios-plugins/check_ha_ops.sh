@@ -27,7 +27,10 @@
 ################################################################################
 
 
-sudo /usr/bin/grep "$(date +"%b %e %H").*warning: Processing failed op" /var/log/messages
+check_date=$(date +"%b %e")
+check_hour=$(($(date +"%H")-1))
+
+grep "${check_date} ${check_hour}.*warning: Processing failed op" /var/log/messages
 rc=$?
 
 if [ "${rc}" -eq "0" ]; then
