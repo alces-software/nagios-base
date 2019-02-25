@@ -16,8 +16,6 @@ critical_threshold="$3"
 
 file="$machine_name.ipmi.out"
 
-echo $file
-
 ipmi_check_dir="/var/spool/nagios/ipmi-check"
 
 #
