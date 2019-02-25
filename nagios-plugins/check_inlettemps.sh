@@ -6,7 +6,7 @@
 # $0 <config file>
 #
 
-config_file="/opt/nagios/nrds-client/controller.ipmi-temperatures.cfg"
+config_file="/opt/nagios/nrds-client/plugin_config.cfg"
 
 source $config_file
 
