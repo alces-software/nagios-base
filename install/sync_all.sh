@@ -125,7 +125,7 @@ while read -r machine_profile_entry; do
 
 
     echo ""
-    echo "Copying nagios-check.cfg config...to ${destination_base_dir}/nrds-client on ${destination_machine}."
+    echo "Copying monitoring client config file to ${destination_base_dir}/nrds-client on ${destination_machine}."
     echo ""
 
     #
@@ -139,7 +139,21 @@ while read -r machine_profile_entry; do
     fi
 
     echo ""
-    echo "Config now copied."
+    echo "Monitoring client Config now copied."
+    echo ""
+
+    echo ""
+    echo "Copying configuration file for plugins to ${destination_base_dir}/nrds-client on ${destination_machine}."
+    echo 
+
+    scp ${source_configs_dir}/plugin_config.cfg ${destination_machine}:${destination_config_dir}
+    if [ ${rc} -ne 0 ]; then
+        echo "Error! Could not scp ${source_configs_dir}/plugin_config.cfg to: ${destination_machine}:${destination_config_dir}"
+        exit 1
+    fi
+
+    echo ""
+    echo "Plugin Configuration File now copied."
     echo ""
 
     echo ""
