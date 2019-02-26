@@ -8,6 +8,16 @@
 
 config_file="/opt/nagios/nrds-client/plugin_config.cfg"
 
+if [ ! -f $config_file ]; then
+    echo "/opt/nagios/nrds-client/plugin_config.cfg not found!"
+    exit 3
+fi
+
+if [ ! -f /opt/nagios/nagios-plugins/check_inlettemp.sh ]; then
+    echo "Error! /opt/nagios/nagios-plugins/check_inlettemp.sh not found!"
+    exit 3
+fi
+
 source $config_file
 
 ipmi_file_dir="/var/spool/nagios/ipmi-check"
@@ -47,7 +57,7 @@ done
 
 
 if [ $critical -gt 0 ] || [ $high -gt 0 ] ; then
-   echo "Temperature alert - $critical > ${highalert}C, $high > ${lowalert}C, $good OK"
+   echo "Temperature alert - $critical > ${critical_threshold}C, $high > ${warning_threshold}C, $good OK"
    exit 1
 elif [ $unknown -gt 0 ] ; then
    echo "Temperature OK ($good OK, $unknown did not report)"
