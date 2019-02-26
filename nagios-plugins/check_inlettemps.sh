@@ -8,6 +8,11 @@
 
 config_file="/opt/nagios/nrds-client/plugin_config.cfg"
 
+if [ ! -f $config_file ]; then
+    echo "/opt/nagios/nrds-client/plugin_config.cfg not found!"
+    exit 3
+fi
+
 source $config_file
 
 ipmi_file_dir="/var/spool/nagios/ipmi-check"
