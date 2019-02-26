@@ -13,6 +13,11 @@ if [ ! -f $config_file ]; then
     exit 3
 fi
 
+if [ ! -f /opt/nagios/nagios-plugins/check_inlettemp.sh ]; then
+    echo "Error! /opt/nagios/nagios-plugins/check_inlettemp.sh not found!"
+    exit 3
+fi
+
 source $config_file
 
 ipmi_file_dir="/var/spool/nagios/ipmi-check"
