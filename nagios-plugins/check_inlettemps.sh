@@ -57,7 +57,7 @@ done
 
 
 if [ $critical -gt 0 ] || [ $high -gt 0 ] ; then
-   echo "Temperature alert - $critical > ${critical_threshold}C, $high > ${warning_threshold}C, $good OK"
+   echo "Temperature alert - $critical machines have critical temperatures, $high machines have warning temperatures, $good machines are OK"
    exit 1
 elif [ $unknown -gt 0 ] ; then
    echo "Temperature OK ($good OK, $unknown did not report)"
