@@ -40,7 +40,7 @@ for type in "${ipmi_temperatures[@]}"; do
 
     for file in `echo $files_to_check`; do
         machine=`basename $file ".ipmi.out"`
-        bash check_inlettemp.sh $machine $warning_threshold $critical_threshold
+        bash /opt/nagios/nagios-plugins/check_inlettemp.sh $machine $warning_threshold $critical_threshold
         rc=$?
         
         if [ $rc -eq 2 ] ; then
