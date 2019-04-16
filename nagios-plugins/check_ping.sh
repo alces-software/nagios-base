@@ -5,7 +5,7 @@ warning=$4
 critical=$6
 nr_packets=$8
 
-output=$(./check_ping -H $host -w $warning -c $critical -p $nr_packets)
+output=$(/opt/nagios/nagios-plugins/check_ping -H $host -w $warning -c $critical -p $nr_packets)
 rc=$?
 
 echo $output
