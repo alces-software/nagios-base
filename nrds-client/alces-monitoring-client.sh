@@ -98,6 +98,8 @@ do
 
     nrdp_data="${nrdp_data}\t${state}"
     nrdp_data="${nrdp_data}\t${output}\n"
+
+    echo -e "${nrdp_data}" > /opt/alces/nagios-base/nrds-client/amc_client.log
 done 
 
 echo -e "${nrdp_data}" | /opt/nagios/nrds-client/send_nrdp.sh -u "${url}" -t "${token}"
