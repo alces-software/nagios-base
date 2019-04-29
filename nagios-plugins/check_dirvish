@@ -1,6 +1,14 @@
 #!/bin/bash
 
 statusfile=/var/spool/nagios/dirvish.out
+mount_point="$2"
+
+/opt/nagios/nagios-plugins/check_ismounted ${mount_point}
+rc=$?
+
+if [ ${rc} -ne "0" ]; then
+   exit 0
+fi
 
 if [ ! -f $statusfile ] ; then
    echo "No dirivsh status file found"
