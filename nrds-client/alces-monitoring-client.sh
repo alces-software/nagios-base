@@ -74,6 +74,19 @@ target_host="1"
 service_desc="2"
 check_path="3"
 
+#
+# Path the log file which contains the data stored in the 
+# nrdp_data string.
+# This string is written piped through to "send_nrdp.sh" 
+# which packages it in the XML form expected by the NRDS server.
+#
+
+log_file="/opt/nagios/nrds-client/amc_client.log"
+
+if [ ! -f $log_file ]; then
+    echo "Log File: $log_file not found!"
+fi
+
 nrdp_data=""
 
 for check in "${checks[@]}"
@@ -99,7 +112,7 @@ do
     nrdp_data="${nrdp_data}\t${state}"
     nrdp_data="${nrdp_data}\t${output}\n"
 
-    echo -e "${nrdp_data}" > /opt/alces/nagios-base/nrds-client/amc_client.log
+    echo -e "${nrdp_data}" > ${log_file}
 done 
 
 echo -e "${nrdp_data}" | /opt/nagios/nrds-client/send_nrdp.sh -u "${url}" -t "${token}"
