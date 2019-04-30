@@ -61,6 +61,10 @@ check_to_run=""
 output=""
 state=""
 
+if [ ! -f $log_file ]; then
+    echo "Log File: $log_file not found!"
+fi
+
 # String to use for the service_description of a host
 host_not_service="__HOST__"
 
@@ -99,7 +103,7 @@ do
     nrdp_data="${nrdp_data}\t${state}"
     nrdp_data="${nrdp_data}\t${output}\n"
 
-    echo -e "${nrdp_data}" > /opt/alces/nagios-base/nrds-client/amc_client.log
+    echo -e "${nrdp_data}" > ${log_file}
 done 
 
 echo -e "${nrdp_data}" | /opt/nagios/nrds-client/send_nrdp.sh -u "${url}" -t "${token}"
