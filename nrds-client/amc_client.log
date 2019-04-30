@@ -1,1 +1,31 @@
-1
+admin01.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.29 ms|rta=0.291000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+admin02.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.29 ms|rta=0.290000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+infra01.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.28 ms|rta=0.281000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+db01.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.31 ms|rta=0.305000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+infra02.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.33 ms|rta=0.327000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+login01.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.29 ms|rta=0.288000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+master1.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.14 ms|rta=0.135000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+master2.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.28 ms|rta=0.281000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+node01.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.25 ms|rta=0.248000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+node02.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.25 ms|rta=0.245000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+node03.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.21 ms|rta=0.209000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+node04.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.23 ms|rta=0.227000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+node05.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.24 ms|rta=0.240000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+node06.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.23 ms|rta=0.235000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+node07.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.31 ms|rta=0.308000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+node08.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.20 ms|rta=0.199000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+oss1.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.24 ms|rta=0.239000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+oss2.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.27 ms|rta=0.266000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+controller.pri.nextgen3	0	PING OK - Packet loss = 0%, RTA = 0.06 ms|rta=0.056000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+controller.pri.nextgen3	Check Users	0	USERS OK - 1 users currently logged in |users=1;10;15;0
+controller.pri.nextgen3	Check Load	0	OK - load average: 0.00, 0.01, 0.05|load1=0.000;15.000;30.000;0; load5=0.010;10.000;25.000;0; load15=0.050;5.000;20.000;0; 
+controller.pri.nextgen3	Check ROOT	0	DISK OK - free space: / 31086 MB (47.91% inode=97%);| /=33796MB;54703;61541;0;68379
+controller.pri.nextgen3	Check BOOT	0	DISK OK - free space: /boot 3524 MB (95.70% inode=100%);| /boot=158MB;3122;3512;0;3903
+controller.pri.nextgen3	Check TMP	0	DISK OK - free space: /tmp 3666 MB (99.56% inode=100%);| /tmp=16MB;3122;3512;0;3903
+controller.pri.nextgen3	Check Zombie Procs	0	PROCS OK: 0 processes with STATE = Z | procs=0;5;10;0;
+controller.pri.nextgen3	Check Total Procs	0	PROCS OK: 103 processes | procs=103;300;500;0;
+controller.pri.nextgen3	Check Swap	0	SWAP OK - 99% free (4024 MB out of 4095 MB) |swap=4024MB;1228;409;0;4095
+controller.pri.nextgen3	Check Temperature	0	Temperature OK on 12 servers
+controller.pri.nextgen3	check_ismounted BOOT	0	Filesystem /boot mounted
+controller.pri.nextgen3	check_ismounted TMP	0	Filesystem /tmp mounted
+
