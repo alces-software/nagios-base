@@ -1,74 +1,74 @@
-admin01.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.30 ms|rta=0.297000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-admin02.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.28 ms|rta=0.280000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-infra01.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.32 ms|rta=0.319000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-infra02.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.36 ms|rta=0.360000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-login3.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.25 ms|rta=0.254000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-login4.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.32 ms|rta=0.324000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-master1.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.18 ms|rta=0.180000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-master2.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.25 ms|rta=0.255000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek01.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.23 ms|rta=0.232000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek02.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.25 ms|rta=0.246000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek03.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.41 ms|rta=0.406000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek04.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.30 ms|rta=0.301000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek05.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.32 ms|rta=0.322000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek06.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.26 ms|rta=0.259000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek07.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.33 ms|rta=0.329000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek08.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.32 ms|rta=0.323000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek09.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.30 ms|rta=0.296000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek10.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.25 ms|rta=0.251000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek11.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.26 ms|rta=0.256000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek12.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.33 ms|rta=0.334000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek13.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.24 ms|rta=0.243000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek14.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.20 ms|rta=0.196000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek15.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.28 ms|rta=0.280000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek16.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.23 ms|rta=0.233000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek17.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.36 ms|rta=0.359000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek18.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.30 ms|rta=0.299000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek19.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.27 ms|rta=0.272000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek20.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.24 ms|rta=0.241000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek21.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.29 ms|rta=0.290000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek22.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.25 ms|rta=0.249000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek23.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.29 ms|rta=0.289000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek24.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.25 ms|rta=0.250000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek25.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.32 ms|rta=0.317000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek26.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.29 ms|rta=0.288000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek27.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.29 ms|rta=0.293000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek28.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.25 ms|rta=0.251000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek29.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.30 ms|rta=0.301000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek30.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.29 ms|rta=0.292000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek31.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.30 ms|rta=0.296000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek32.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.35 ms|rta=0.352000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek33.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.25 ms|rta=0.252000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek34.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.23 ms|rta=0.233000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek35.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.30 ms|rta=0.296000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek36.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.29 ms|rta=0.292000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek37.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.24 ms|rta=0.242000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek38.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.28 ms|rta=0.285000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek39.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.29 ms|rta=0.292000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek40.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.25 ms|rta=0.245000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek41.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.23 ms|rta=0.234000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek42.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.23 ms|rta=0.235000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek43.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.29 ms|rta=0.290000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek44.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.23 ms|rta=0.233000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek45.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.29 ms|rta=0.291000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek46.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.24 ms|rta=0.240000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek47.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.18 ms|rta=0.179000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek48.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.26 ms|rta=0.259000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek49.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.25 ms|rta=0.245000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek50.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.38 ms|rta=0.383000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek51.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.23 ms|rta=0.230000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek52.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.19 ms|rta=0.190000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek53.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.24 ms|rta=0.242000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-nodek54.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.19 ms|rta=0.185000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
-controller.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.06 ms|rta=0.057000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+admin01.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.31 ms|rta=0.315000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+admin02.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.29 ms|rta=0.287000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+infra01.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.30 ms|rta=0.296000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+infra02.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.19 ms|rta=0.188000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+login3.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.26 ms|rta=0.261000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+login4.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.25 ms|rta=0.251000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+master1.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.18 ms|rta=0.184000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+master2.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.26 ms|rta=0.258000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek01.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.26 ms|rta=0.263000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek02.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.25 ms|rta=0.245000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek03.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.27 ms|rta=0.267000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek04.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.20 ms|rta=0.200000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek05.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.25 ms|rta=0.248000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek06.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.29 ms|rta=0.292000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek07.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.26 ms|rta=0.256000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek08.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.19 ms|rta=0.194000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek09.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.30 ms|rta=0.303000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek10.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.25 ms|rta=0.246000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek11.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.34 ms|rta=0.339000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek12.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.33 ms|rta=0.326000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek13.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.39 ms|rta=0.392000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek14.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.21 ms|rta=0.210000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek15.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.23 ms|rta=0.227000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek16.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.27 ms|rta=0.272000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek17.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.20 ms|rta=0.203000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek18.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.20 ms|rta=0.203000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek19.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.32 ms|rta=0.324000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek20.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.34 ms|rta=0.336000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek21.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.27 ms|rta=0.268000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek22.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.27 ms|rta=0.271000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek23.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.37 ms|rta=0.369000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek24.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.24 ms|rta=0.244000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek25.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.21 ms|rta=0.207000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek26.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.25 ms|rta=0.245000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek27.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.29 ms|rta=0.287000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek28.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.27 ms|rta=0.269000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek29.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.28 ms|rta=0.278000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek30.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.28 ms|rta=0.275000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek31.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.36 ms|rta=0.361000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek32.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.22 ms|rta=0.215000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek33.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.24 ms|rta=0.244000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek34.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.19 ms|rta=0.190000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek35.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.26 ms|rta=0.263000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek36.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.29 ms|rta=0.294000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek37.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.25 ms|rta=0.252000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek38.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.35 ms|rta=0.349000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek39.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.30 ms|rta=0.300000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek40.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.23 ms|rta=0.230000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek41.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.21 ms|rta=0.209000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek42.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.31 ms|rta=0.314000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek43.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.27 ms|rta=0.266000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek44.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.35 ms|rta=0.346000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek45.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.35 ms|rta=0.353000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek46.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.34 ms|rta=0.342000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek47.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.32 ms|rta=0.319000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek48.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.28 ms|rta=0.281000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek49.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.35 ms|rta=0.346000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek50.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.30 ms|rta=0.300000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek51.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.31 ms|rta=0.311000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek52.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.31 ms|rta=0.308000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek53.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.31 ms|rta=0.306000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+nodek54.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.28 ms|rta=0.284000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
+controller.pri.rosalind2	0	PING OK - Packet loss = 0%, RTA = 0.06 ms|rta=0.060000ms;200.000000;400.000000;0.000000 pl=0%;40;60;0
 controller.pri.rosalind2	Check Users	0	USERS OK - 2 users currently logged in |users=2;10;15;0
-controller.pri.rosalind2	Check Load	0	OK - load average: 0.00, 0.01, 0.05|load1=0.000;15.000;30.000;0; load5=0.010;10.000;25.000;0; load15=0.050;5.000;20.000;0; 
-controller.pri.rosalind2	Check ROOT	0	DISK OK - free space: / 26452 MB (40.76% inode=95%);| /=38430MB;54703;61541;0;68379
+controller.pri.rosalind2	Check Load	0	OK - load average: 0.00, 0.02, 0.05|load1=0.000;15.000;30.000;0; load5=0.020;10.000;25.000;0; load15=0.050;5.000;20.000;0; 
+controller.pri.rosalind2	Check ROOT	0	DISK OK - free space: / 26427 MB (40.73% inode=95%);| /=38456MB;54703;61541;0;68379
 controller.pri.rosalind2	Check BOOT	0	DISK OK - free space: /boot 3516 MB (95.47% inode=100%);| /boot=166MB;3122;3512;0;3903
 controller.pri.rosalind2	Check TMP	0	DISK OK - free space: /tmp 3666 MB (99.56% inode=100%);| /tmp=16MB;3122;3512;0;3903
 controller.pri.rosalind2	Check Zombie Procs	0	PROCS OK: 0 processes with STATE = Z | procs=0;5;10;0;
 controller.pri.rosalind2	Check Total Procs	0	PROCS OK: 123 processes | procs=123;300;500;0;
-controller.pri.rosalind2	Check Swap	0	SWAP OK - 100% free (4081 MB out of 4095 MB) |swap=4081MB;1228;409;0;4095
+controller.pri.rosalind2	Check Swap	0	SWAP OK - 100% free (4080 MB out of 4095 MB) |swap=4080MB;1228;409;0;4095
 controller.pri.rosalind2	Check Temperature	0	Temperature OK on 56 servers
 controller.pri.rosalind2	check_ismounted BOOT	0	Filesystem /boot mounted
 controller.pri.rosalind2	check_ismounted TMP	0	Filesystem /tmp mounted

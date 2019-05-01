@@ -211,6 +211,19 @@ while read -r machine_profile_entry; do
     #ssh -n ${destination_machine} "${destination_base_dir}/manual-checks/nagios_sudoers.sh"
     ssh -n ${destination_machine} cp "${destination_base_dir}/deps/sudoers/nagios-monitoring /etc/sudoers.d"
 
+    #
+    # Set permissions
+    #
+    echo ""
+    echo "Setting permissions..."
+    echo ""
+    ssh -n ${destination_machine} "${destination_base_dir}/deps/set_permissions.sh"
+    rc=$?
+    if [ ${rc} -ne 0 ]; then
+        echo "Error setting permissions !"
+	exit 1
+    fi
+
 done < cluster_monitoring_profile.cfg
 
 echo "Done."
