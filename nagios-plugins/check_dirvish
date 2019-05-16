@@ -1,7 +1,7 @@
 #!/bin/bash
 
 statusfile=/var/spool/nagios/dirvish.out
-mount_point="$2"
+mount_point="$1"
 
 /opt/nagios/nagios-plugins/check_ismounted ${mount_point}
 rc=$?
