@@ -13,6 +13,11 @@ if [ ! -f $config_file ]; then
     exit 3
 fi
 
+
+#
+# The following check is a dependency, ensure it is present.
+#
+
 if [ ! -f /opt/nagios/nagios-plugins/check_inlettemp.sh ]; then
     echo "Error! /opt/nagios/nagios-plugins/check_inlettemp.sh not found!"
     exit 3
@@ -35,12 +40,13 @@ for type in "${ipmi_temperatures[@]}"; do
     machine_type=`echo $type | cut -d: -f 1`
     warning_threshold=`echo $type | cut -d: -f 2`
     critical_threshold=`echo $type | cut -d: -f 3`
+    ipmi_attribute=`echo $type | cut -d: -f 4`
    
     files_to_check=`ls ${ipmi_file_dir}/${machine_type}*`
 
     for file in `echo $files_to_check`; do
         machine=`basename $file ".ipmi.out"`
-        bash /opt/nagios/nagios-plugins/check_inlettemp.sh $machine $warning_threshold $critical_threshold
+        bash /opt/nagios/nagios-plugins/check_inlettemp.sh $machine $warning_threshold $critical_threshold "$ipmi_attribute"
         rc=$?
         
         if [ $rc -eq 2 ] ; then
