@@ -10,7 +10,7 @@
 # f(machine name, warning_threshold, critical_threshold) = <OK|WARNING|CRITICAL>
 #
 
-if [[ -z "$1" ]] || [[ -z $2 ]] || [[ -z $3 ]] || [[ "$4" == "" ]]; then
+if [[ -z "$1" ]] || [[ -z $2 ]] || [[ -z $3 ]] || [[  -z "$4" ]]; then
     echo "Error! Usage: $0 <machine name> <warning threshold> <critical threshold> <ipmi attribute>"
     exit 3
 fi
