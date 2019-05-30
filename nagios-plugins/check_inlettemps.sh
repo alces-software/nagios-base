@@ -41,7 +41,7 @@ for type in "${ipmi_temperatures[@]}"; do
     warning_threshold=`echo $type | cut -d: -f 2`
     critical_threshold=`echo $type | cut -d: -f 3`
     ipmi_attribute=`echo $type | cut -d: -f 4`
-   
+
     files_to_check=`ls ${ipmi_file_dir}/${machine_type}*`
 
     for file in `echo $files_to_check`; do
@@ -49,11 +49,11 @@ for type in "${ipmi_temperatures[@]}"; do
         bash /opt/nagios/nagios-plugins/check_inlettemp.sh $machine $warning_threshold $critical_threshold "$ipmi_attribute"
         rc=$?
         
-        if [ $rc -eq 2 ] ; then
+        if [ "$rc" -eq "2" ] ; then
             critical=`expr $critical + 1`
-        elif [ $rc -eq 1 ] ; then
+        elif [ "$rc" -eq "1" ] ; then
             high=`expr $high + 1`
-        elif [ $rc -eq 0 ] ; then
+        elif [ "$rc" -eq "0" ] ; then
             good=`expr $good + 1`
         else
             unknown=`expr $unknown + 1`
