@@ -1,4 +1,4 @@
-#!/bin/bash -l
+#!/bin/bash
 
 # Plugin to check slurm status
 
@@ -10,7 +10,7 @@ fi
 outputfile=/tmp/slurmoutput.$$
 
 # Don't hang-up the plugin if sinfo takes too long to return
-/usr/bin/sinfo -Nl > $outputfile 2>&1 &
+sudo /usr/bin/sinfo -Nl > $outputfile 2>&1 &
 sleep 2
 
 # Init variables
