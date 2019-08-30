@@ -30,7 +30,7 @@
 check_date=$(date +"%b %e")
 check_hour=$(($(date +"%H")-1))
 
-sudo grep "${check_date} ${check_hour}.*warning: Processing failed op" /var/log/messages
+sudo grep "${check_date} ${check_hour}.*warning: Processing failed" /var/log/messages
 rc=$?
 
 if [ "${rc}" -eq "0" ]; then

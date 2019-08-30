@@ -35,7 +35,7 @@ if [ "$count" -ne "1" ]; then
     exit 3
 fi
 
-decval=`cat $ipmi_check_dir/$file 2> /dev/null | grep -i inlet | head -1 | awk '{print $8}' | cut -d. -f1`
+decval=`cat $ipmi_check_dir/$file 2> /dev/null | grep -i "${ipmi_attribute_check}" | head -1 | awk '{print $8}' | cut -d. -f1`
 
 if [ $decval -ge $critical_threshold ]; then
     # output to stdout not interpreted here.
