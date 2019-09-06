@@ -1,2 +1,2 @@
-Cmnd_Alias MONITOR = /opt/MegaRAID/MegaCli/MegaCli64 -ldinfo *, /usr/sbin/crm_mon -s, /usr/sbin/multipath -ll, /usr/bin/ipmitool sensor, /usr/bin/SMcli -d -v, /usr/bin/ipmitool sel elist, /usr/sbin/nvme, /usr/bin/grep *, /usr/sbin/repquota, /usr/bin/sinfo *
+Cmnd_Alias MONITOR = /opt/MegaRAID/MegaCli/MegaCli64 -ldinfo *, /usr/sbin/crm_mon -s, /usr/sbin/multipath -ll, /usr/bin/ipmitool sensor, /usr/bin/SMcli -d -v, /usr/bin/ipmitool sel elist, /usr/sbin/nvme, /usr/bin/grep *, /usr/sbin/repquota, /usr/bin/sinfo *, /usr/sbin/lnetctl route show -v
 nagios    ALL=(ALL)       NOPASSWD: MONITOR
