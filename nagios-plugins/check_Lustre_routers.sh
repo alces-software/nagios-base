@@ -1,6 +1,4 @@
 #!/bin/bash                                                                                                                                                            
-                                                                                                                          
-
 ################################################################################
 # (c) Copyright 2018 Stephen F Norledge & Alces Software Ltd.                  #
 #                                                                              #
@@ -26,18 +24,59 @@
 #                                                                              #
 ################################################################################
 
+valid_ip="(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
 
-check_date=$(date +"%b %e")
-check_hour=$(($(date +"%H")-1))
+show_route=$(sudo /usr/sbin/lnetctl route show -v | grep -i "gateway\|state")
+formatted_route=$(echo ${show_route} | sed 's|up\ |up\n|g')
 
-sudo grep "${check_date} ${check_hour}.*warning: Processing failed" /var/log/messages
-rc=$?
+gw_down="down"
+gw_up="up"
 
-if [ "${rc}" -eq "0" ]; then
-    echo "Processing failed op detected"
-    exit 1 
-else
-    echo "No processing failed op detected"
+nr_down=0
+nr_up=0 
+nr_other=0
+nr_seen=0
+
+while read -r line
+do
+    gateway=$(echo ${line} | grep -E -o "${valid_ip}")
+    if [ $? -ne 0 ]; then
+        echo "Error: Gateway not seen."
+        exit 2
+    fi
+    gw_state=$(echo ${line} | grep -io "state.*" | cut -d":" -f 2 | tr -d ' ')
+    if [ $? -ne 0 ]; then
+        echo "Error: Gateway state not seen "
+        exit 2
+    fi
+
+    ((nr_seen++))
+
+    if [ "${gw_state}" == "${gw_up}" ]; then
+        ((nr_up++))
+    elif [ "${gw_state}" == "${gw_down}" ]; then
+        ((nr_down++))
+    else
+        ((nr_other++))
+    fi
+    echo -n "Gateway: ${gateway} is ${gw_state}. "
+done <<< "${formatted_route}"
+
+#echo "nr_up:" ${nr_up}
+#echo "nr_down:" ${nr_down}
+#echo "nr_others:" ${nr_others}
+#echo "nr_seen:" ${nr_seen}
+
+if [ "${nr_seen}" == "${nr_up}" ]; then
+    echo "OK - All detected gateways have state: up."
     exit 0
+elif [ "${nr_down}" -gt 0 ] && [ "${nr_other}" -eq 0 ]; then
+    echo "WARNING - ${nr_down} Gateway(s) have been lost!"
+    exit 1
+elif [ "${nr_seen}" == "${nr_down}" ] && [ "${nr_other}" -eq 0 ]; then
+    echo "CRITICAL - All detected gateways have state: down!"
+    exit 2
+elif [ ${nr_other} -gt 0 ]; then
+    echo "UNKNOWN - ${nr_others} gatewats in unknown state"
+    exit 3
 fi
-

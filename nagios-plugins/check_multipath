@@ -63,11 +63,33 @@ if [ `$checkcommand | grep -c faulty` -gt 0 ] ; then
    exit 1
 fi
 
+# Check for single-device multipath items (i.e. secondary path has failed before boot)
+multipath -ll > /tmp/mpath.$$ 2>&1
+onepathmap=0
+for dev in `cat /tmp/mpath.$$ | awk '{print $3}' | grep "dm-"`
+do
+   paths=0
+   for disk in `grep -A 10 $dev /tmp/mpath.$$ | sed 's?|??g' | awk '{print $3}' | egrep "^sd|dm-"`
+   do
+       if [ `echo $disk | grep -c sd` -ge 1 ] ; then
+          paths=`expr $paths + 1`
+       elif [ `echo $disk | grep -c "dm-"` -gt 1 ] ; then
+          break
+       fi
+   done
+   if [ $paths -lt 2 ] ; then
+      onepathmap=`expr $onepathmap + 1`
+   fi
+done
+rm -f /tmp/mpath.$$ > /dev/null
+   
 if [ `$checkcommand | fgrep \_ | egrep -v "prio|active|features"  | wc -l | awk '{print $1}'` -gt 0 ] ; then
    echo "SAS multipath warning: `$checkcommand | fgrep \_ | egrep -v "prio|active|features" | awk '{print $3,$5}'`"
+   exit 1
+elif [ $onepathmap -gt 0 ] ; then
+   echo "$onepathmap multipath device(s) with only one path detected"
    exit 1
 else
    echo "SAS multipath ok"
    exit 0
 fi
-
