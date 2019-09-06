@@ -18,16 +18,22 @@ unexpected=0
 totalnodes=0
 
 # Add checks here
-unexpected=`grep -ci unexpected $outputfile | awk '{print $1}'`
-lines=`wc -l $outputfile | awk '{print $1}'`
+unexpected=`grep -i unexpected $outputfile | awk '{print $1}' | sort | uniq | wc -l | awk '{print $1}'`
+lines=`cat $outputfile | awk '{print $1}' | sort | uniq | wc -l | awk '{print $1}'`
 totalnodes=`expr $lines - 2`
-down=`grep -ci down $outputfile | awk '{print $1}'`
-
+down=`grep -i down $outputfile | awk '{print $1}' | sort | uniq | wc -l | awk '{print $1}'`
+drain=`grep -i "drain" $outputfile | awk '{print $1}' | sort | uniq | wc -l | awk '{print $1}'`
+killfailed=`grep -i "kill task failed" $outputfile | awk '{print $1}' | sort | uniq | wc -l | awk '{print $1}'`
 
 rm -f $outputfile > /dev/null 2>&1
 
 if [ $unexpected -gt 0 ] ; then
    echo "$unexpected node(s) reporting unexpected reboot ($down node(s) down)"
+   exit 1
+fi
+
+if [ $killfailed -gt 0 ] ; then
+   echo "$killfailed node(s) reporting kill task failed"
    exit 1
 fi
 
@@ -38,6 +44,10 @@ fi
 
 # Add more conditions here
 
+if [ $drain -gt 0 ] ; then
+   echo "$drain node(s) reporting drained"
+   exit 1
+fi
 
 # Final condition
 echo "Slurm okay - detected $totalnodes running node(s)"
