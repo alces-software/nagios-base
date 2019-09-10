@@ -23,6 +23,7 @@ lines=`cat $outputfile | awk '{print $1}' | sort | uniq | wc -l | awk '{print $1
 totalnodes=`expr $lines - 2`
 down=`grep -i down $outputfile | awk '{print $1}' | sort | uniq | wc -l | awk '{print $1}'`
 drain=`grep -i "drain" $outputfile | awk '{print $1}' | sort | uniq | wc -l | awk '{print $1}'`
+alcesdrain=`grep -i "drain" $outputfile | grep Alces | awk '{print $1}' | sort | uniq |  wc -l | awk '{print $1}'`
 killfailed=`grep -i "kill task failed" $outputfile | awk '{print $1}' | sort | uniq | wc -l | awk '{print $1}'`
 
 rm -f $outputfile > /dev/null 2>&1
@@ -45,8 +46,13 @@ fi
 # Add more conditions here
 
 if [ $drain -gt 0 ] ; then
-   echo "$drain node(s) reporting drained"
-   exit 1
+   if [ $alcesdrain -eq $drain ] ; then
+      echo "$alcesdrain node(s) drained for maintenance by Alces"
+      exit 0
+   else
+      echo "$drain node(s) reporting drained"
+      exit 1
+   fi
 fi
 
 # Final condition

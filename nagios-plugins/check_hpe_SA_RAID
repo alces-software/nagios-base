@@ -1,19 +1,20 @@
-#!/bin/bash -l
-
-# Plugin to check status of HPE Smart Array controller logical volumes
+n to check status of HPE Smart Array controller logical volumes
 
 checkdir="/var/spool/nagios/hpssacli"
 
 good=0
 fail=0
 
-for LD in `grep logicaldrive $checkdir/slot*.status | awk '{print $2}'`
+for slot_status in $(ls -1 ${checkdir})
 do
-   if [ `grep "logicaldrive $LD" $checkdir/slot*.status | grep -c " OK)" | awk '{print $1}'` -ne 1 ] ; then
-       fail=`expr $fail + 1`
-   else
-       good=`expr $good + 1`
-   fi
+    for LD in `grep logicaldrive ${checkdir}/${slot_status} | awk '{print $2}'`
+    do
+       if [ `grep "logicaldrive $LD" ${checkdir}/${slot_status} | grep -c " OK)" | awk '{print $1}'` -ne 1 ] ; then
+           fail=`expr $fail + 1`
+       else
+           good=`expr $good + 1`
+       fi
+    done
 done
 
 if [ $fail -gt 0 ] && [ $good -gt 0 ] ; then
