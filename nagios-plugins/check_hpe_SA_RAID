@@ -1,4 +1,6 @@
-n to check status of HPE Smart Array controller logical volumes
+#!/bin/bash -l
+
+# Plugin to check status of HPE Smart Array controller logical volumes
 
 checkdir="/var/spool/nagios/hpssacli"
 
