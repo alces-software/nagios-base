@@ -1,15 +1,16 @@
 #!/bin/bash
 
-/opt/nagios/nagios-plugins/check_fileage.py -f /opt/site/license-monitor/abaqus-licenses.rc -w 30 -c 60
+/opt/nagios/nagios-plugins/check_fileage.py -f /opt/site/license-monitor/abaqus-licenses.rc -w 30 -c 60 > /dev/null 2>&1
 abaqusrc=$?
 
-/opt/nagios/nagios-plugins/check_fileage.py -f /opt/site/license-monitor/ansa-licenses.rc -w 30 -c 60
+/opt/nagios/nagios-plugins/check_fileage.py -f /opt/site/license-monitor/ansa-licenses.rc -w 30 -c 60 > /dev/null 2>&1
 ansarc=$?
 
 if [ ${abaqusrc} -ne 0 ] || [ ${ansarc} -ne 0 ]; then
-    echo "Abaqusrc or Ansa License files not updated within 30 mins."
+    echo "WARNING: Abaqusrc or Ansa License files not updated within the last 30 mins."
     exit 1
 else
+    echo "OK: License files have been updated within the last 30 mins."
     exit 0
 fi
 
