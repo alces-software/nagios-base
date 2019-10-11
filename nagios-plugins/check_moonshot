@@ -1,0 +1,61 @@
+#!/bin/bash
+################################################################################
+# (c) Copyright 2007-2011 Alces Software Ltd                                   #
+#                                                                              #
+# HPC Cluster Toolkit                                                          #
+#                                                                              #
+# This file/package is part of the HPC Cluster Toolkit                         #
+#                                                                              #
+# This is free software: you can redistribute it and/or modify it under        #
+# the terms of the GNU Affero General Public License as published by the Free  #
+# Software Foundation, either version 3 of the License, or (at your option)    #
+# any later version.                                                           #
+#                                                                              #
+# This file is distributed in the hope that it will be useful, but WITHOUT     #
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or        #
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License #
+# for more details.                                                            #
+#                                                                              #
+# You should have received a copy of the GNU Affero General Public License     #
+# along with this product.  If not, see <http://www.gnu.org/licenses/>.        #
+#                                                                              #
+# For more information on Alces Software, please visit:                        #
+# http://www.alces-software.org/                                               #
+#                                                                              #
+################################################################################
+
+# Script to check the status of HPE moonshot chassis status files
+# N.B. actual status collection is performed by tool called by cron
+
+goodch=0
+nodata=0
+badch=0
+chok=0
+chfault=0
+totalfaults=0
+
+for f in `ls -1 /var/spool/nagios/moonshotchassis-check/`
+do
+   file=/var/spool/nagios/moonshotchassis-check/$f
+   chok=`grep "Status" $file | grep -ic OK`
+   chfault=`grep "Status" $file | grep -vic OK`
+   if [ $chok -eq 0 ] && [ $chfault -eq 0 ] ; then
+      nodata=`expr $nodata + 1`
+   elif [ $chfault -gt 0 ] ; then
+      totalfaults=`expr $totalfaults + $chfault`
+      badch=`expr $badch + 1`
+   else
+      goodch=`expr $goodch + 1`
+   fi
+done
+
+if [ $badch -gt 0 ] ; then
+   echo "$badch chassis reporting fault ($totalfaults alerts, $goodch chassis OK)"
+   exit 1
+elif [ $nodata -gt 0 ] ; then
+   echo "Detected $goodch healthy chassis ($nodata chassis report no data)"
+   exit 0
+else
+   echo "Detected $goodch healthy chassis"
+   exit 0
+fi

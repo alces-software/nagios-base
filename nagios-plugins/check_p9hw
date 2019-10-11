@@ -1,0 +1,72 @@
+#!/bin/bash
+################################################################################
+# (c) Copyright 2007-2011 Alces Software Ltd                                   #
+#                                                                              #
+# HPC Cluster Toolkit                                                          #
+#                                                                              #
+# This file/package is part of the HPC Cluster Toolkit                         #
+#                                                                              #
+# This is free software: you can redistribute it and/or modify it under        #
+# the terms of the GNU Affero General Public License as published by the Free  #
+# Software Foundation, either version 3 of the License, or (at your option)    #
+# any later version.                                                           #
+#                                                                              #
+# This file is distributed in the hope that it will be useful, but WITHOUT     #
+# ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or        #
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License #
+# for more details.                                                            #
+#                                                                              #
+# You should have received a copy of the GNU Affero General Public License     #
+# along with this product.  If not, see <http://www.gnu.org/licenses/>.        #
+#                                                                              #
+# For more information on Alces Software, please visit:                        #
+# http://www.alces-software.org/                                               #
+#                                                                              #
+################################################################################
+
+# Script to check the status of IBM P9 hardware
+# N.B. actual status collection is performed by tool called by cron
+
+checkfile=/var/spool/nagios/p9hw-check/allp9node_LED_status.out
+
+goodch=0
+nodata=0
+badch=0
+chok=0
+chfault=0
+totalfaults=0
+
+if [ ! -f $checkfile ] || [ `wc -l $checkfile | awk '{print $1}'` -eq 0 ] ; then
+   echo "No data reported - check reporting file"
+   exit 3
+fi
+
+totalnodes=`wc -l $checkfile | awk '{print $1}'`
+oknodes=`grep -c "state=off" $checkfile`
+alerts=`grep -c "state=on" $checkfile`
+unknown=`expr $totalnodes - $oknodes`
+unknown=`expr $unknown - $alerts`
+
+if [ $alerts -gt 0 ] ; then
+   # Find HMCs with alerts to help diagnosis
+   for hmc in `grep "state=on" $checkfile | cut -d/ -f2 | cut -d\) -f 1 | sed 's?HMC0??g'i | sort | uniq`
+   do 
+      hmcstring=`echo -ne "$hmcstring,$hmc"`
+   done
+   hmc=`echo $hmcstring | sed 's?,$??g' | sed 's?^,??g'`
+   
+   if [ $unknown -gt 0 ] ; then
+      echo "$alerts node(s) have attention LED on - HMC-$hmc ($unknown report no data, $oknodes OK)"
+      exit 1
+   else
+      echo "$alerts node(s) have attention LED on - HMC-$hmc ($oknodes OK)"
+      exit 1
+   fi
+elif [ $unknown -gt 0 ] ; then
+   echo "$unknown node(s) cannot report attention LED status ($oknodes OK)"
+   exit 1
+else 
+   echo "$oknodes nodes have attention light off"
+   exit 0
+fi
+
