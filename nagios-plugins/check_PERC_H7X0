@@ -39,13 +39,20 @@ vol=$1
 card=$2
 
 # the command to run to check the service
-checkcommand=`sudo /opt/MegaRAID/MegaCli/MegaCli64 -ldinfo -l $vol -A $card | grep State | awk '{print $3}'`
+check_optimal=`sudo /opt/MegaRAID/MegaCli/MegaCli64 -ldinfo -l $vol -A $card | grep State | awk '{print $3}'`
+check_predictive_failure=`/opt/MegaRAID/MegaCli/MegaCli64 -AdpEventLog -GetEvents -f /var/tmp/PERC_H700_out.log -a0 > /dev/null 2>&1 ; grep -c "Predicti" /var/tmp/PERC_H700_out.log | awk '{print $1}'`
 
-if [ `echo $checkcommand | grep -c Optimal | awk '{print $1}'` -lt 1 ] ; then
-   echo "System disk RAID volume warning: `echo $checkcommand | sed 's?\t? ?g'`"
+#
+# If performance of active volume is suboptimal, generate a critical
+#
+
+if [ `echo $check_optimal | grep -c Optimal | awk '{print $1}'` -lt 1 ] ; then
+   echo "System disk RAID volume warning: `echo $check_optimal | sed 's?\t? ?g'`"
    exit 1
+elif [ `echo $check_predictive_failure | awk '{print $1}'` -gt 0 ] ; then
+   echo "RAID adapter registered $check_predictive_failure predictive failure warnings"
+   exit 2
 else
    echo "System disk RAID volume OK"
    exit 0
 fi
-
