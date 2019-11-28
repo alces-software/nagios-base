@@ -1,5 +1,4 @@
-heck slurmctld
-#
+#!/bin/bash
 
 slurmctld_active=0
 slurmdbd_active=0

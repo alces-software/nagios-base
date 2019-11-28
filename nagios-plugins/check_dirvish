@@ -7,7 +7,7 @@ mount_point="$1"
 rc=$?
 
 if [ ${rc} -ne "0" ]; then
-   exit 0
+   exit ${rc}
 fi
 
 if [ ! -f $statusfile ] ; then
