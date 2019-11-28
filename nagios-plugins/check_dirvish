@@ -3,10 +3,12 @@
 statusfile=/var/spool/nagios/dirvish.out
 mount_point="$1"
 
-/opt/nagios/nagios-plugins/check_ismounted ${mount_point}
+ret_string=""
+ret_string=$(/opt/nagios/nagios-plugins/check_ismounted ${mount_point})
 rc=$?
 
 if [ ${rc} -ne "0" ]; then
+   echo ${ret_string}
    exit ${rc}
 fi
 
