@@ -7,7 +7,7 @@
 
 hpssacli_present=0
 
-if [ -x /usr/sbin/hpssacli ]; then
+if [ -f /usr/sbin/hpssacli ]; then
    # echo "hpssacli installed."
    hpssacli_present=1
 else
@@ -30,6 +30,7 @@ fi
 #
 if [ ${hpssacli_present} -eq 1 ] && [ ${softwareraid} -eq 0 ]; then
    /opt/nagios/nagios-plugins/check_hpe_SA_RAID
+   exit 0
 fi
 
 #
@@ -37,6 +38,7 @@ fi
 #
 if [ ${hpssacli_present} -eq 0 ] && [ ${softwareraid} -eq 1 ]; then
    /opt/nagios/nagios-plugins/check_swraid1.sh
+   exit 0
 fi 
 
 exit 3
