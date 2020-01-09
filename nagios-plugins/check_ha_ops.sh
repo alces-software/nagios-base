@@ -28,7 +28,8 @@
 
 
 check_date=$(date +"%b %e")
-check_hour=$(($(date +"%H")-1))
+check_hour=$(date +"%H")
+check_hour=$((${check_hour#0}-1))
 
 sudo grep "${check_date} ${check_hour}.*warning: Processing failed" /var/log/messages
 rc=$?
@@ -41,3 +42,4 @@ else
     exit 0
 fi
 
+exit 3
