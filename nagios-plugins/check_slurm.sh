@@ -22,7 +22,7 @@ unexpected=`grep -i unexpected $outputfile | awk '{print $1}' | sort | uniq | wc
 lines=`cat $outputfile | awk '{print $1}' | sort | uniq | wc -l | awk '{print $1}'`
 totalnodes=`expr $lines - 2`
 down=`grep -i down $outputfile | awk '{print $1}' | sort | uniq | wc -l | awk '{print $1}'`
-drain=`grep -i "drain" $outputfile | awk '{print $1}' | sort | uniq | wc -l | awk '{print $1}'`
+drain=`grep -i "drain" $outputfile | grep -v Alces | awk '{print $1}' | sort | uniq | wc -l | awk '{print $1}'`
 alcesdrain=`grep -i "drain" $outputfile | grep Alces | awk '{print $1}' | sort | uniq |  wc -l | awk '{print $1}'`
 killfailed=`grep -i "kill task failed" $outputfile | awk '{print $1}' | sort | uniq | wc -l | awk '{print $1}'`
 
