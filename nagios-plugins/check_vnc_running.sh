@@ -1,0 +1,60 @@
+#!/bin/bash
+
+
+warning_threshold_hours=$1
+
+#
+# Ensure the argument is an two digit integer - argument is in hours
+#
+
+valid_warning_threshold_hours=$(echo ${warning_threshold_hours} | grep -wP "[[:digit:]]{2}")
+rc=$?
+
+if [ ${rc} -ne 0 ]; then
+    echo "Error checking the warning threshold."
+    exit 3
+fi
+
+if [ ! ${valid_warning_threshold_hours} ]; then
+    echo "Invalid Warning Threshold. Warning Threshold is: ${warning_threshold_hours}"
+    exit 3
+fi
+
+#
+# See if vnc is running and grab its pid
+#
+
+vnc_pid=$(ps aux | grep /usr/bin/Xvnc | grep -v "grep" | awk '{print $2}')
+
+# 
+# if vnc_pid variable is undefined, /usr/bin/Xvnc won't be running.
+#
+
+# Xvnc not running
+if [ -z ${vnc_pid} ];then
+    echo "OK: /usr/bin/Xvnc not running."
+    exit 0
+# Xvnc running, but for how long ?
+else
+    elapsed_time=$(ps -o etimes= -p "${vnc_pid}")
+
+    #
+    # obtain our warning threshold in seconds
+    #
+
+    seconds_per_hour="3600"
+    warning_threshold_seconds=$((${valid_warning_threshold_hours} * ${seconds_per_hour}))
+
+    if [ ${elapsed_time} -lt ${warning_threshold_seconds} ]; then
+        echo "OK: /usr/bin/Xvnc running for ${elapsed_time}."
+        exit 0
+    elif [ ${elapsed_time} -ge ${warning_threshold_seconds} ]; then
+       echo "WARNING: /usr/bin/Xvnc running for ${elapsed_time}."
+       exit 1
+    else
+       exit 3
+    fi
+fi
+
+exit 3
+
