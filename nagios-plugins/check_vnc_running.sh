@@ -51,10 +51,10 @@ else
     warning_threshold_seconds=$((${valid_warning_threshold_hours} * ${seconds_per_hour}))
 
     if [ ${elapsed_time} -lt ${warning_threshold_seconds} ]; then
-        echo "OK: /usr/bin/Xvnc running for ${elapsed_time}."
+        echo "OK: /usr/bin/Xvnc running for less than ${valid_warning_threshold_hours} hours."
         exit 0
     elif [ ${elapsed_time} -ge ${warning_threshold_seconds} ]; then
-       echo "WARNING: /usr/bin/Xvnc running for ${elapsed_time}."
+       echo "WARNING: /usr/bin/Xvnc running for more than ${valid_warning_threshold_hours} hours."
        exit 1
     else
        exit 3
