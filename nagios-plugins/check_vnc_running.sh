@@ -21,10 +21,15 @@ if [ ! ${valid_warning_threshold_hours} ]; then
 fi
 
 #
-# See if vnc is running and grab its pid
+# See if vnc is running and grab its pid(s)
 #
 
-vnc_pid=$(ps aux | grep /usr/bin/Xvnc | grep -v "grep" | awk '{print $2}')
+vnc_pid=$(ps aux | grep -v "grep" | grep -m1 /usr/bin/Xvnc | awk '{print $2}')
+
+# 
+# 'awk '{print $2}' actually prints the 2nd column
+# so vnc_pid will actually consist of a column
+#
 
 # 
 # if vnc_pid variable is undefined, /usr/bin/Xvnc won't be running.
