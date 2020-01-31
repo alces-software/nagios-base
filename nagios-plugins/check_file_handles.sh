@@ -28,6 +28,7 @@ elif [ ${allocated_file_handles} -gt ${warning} ]; then
     echo "Warning: Number of allocated file handles is : ${allocated_file_handles}"
     exit 1
 else
+    echo "OK: Number of allocated file handles is : ${allocated_file_handles}"
     exit 0
 fi
 
