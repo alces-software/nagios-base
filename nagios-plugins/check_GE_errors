@@ -38,8 +38,8 @@ export SGE_EXECD_PORT="6445"
 export SGE_QMASTER_PORT="6444"
 export SGE_ROOT="/opt/service/gridscheduler/"
 PATH=$PATH:/opt/service/gridscheduler/bin/linux-x64/
-qping=/opt/service/gridscheduler/bin/linux-x64/qping
-qstat=qstat
+qping=$SGE_ROOT/bin/linux-x64/qping
+qstat=$SGE_ROOT/bin/linux-x64/qstat
 
 # Check monitor application is present and executable
 [[ -x `which $qstat` ]] || exit 3
